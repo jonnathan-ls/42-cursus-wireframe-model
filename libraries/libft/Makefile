@@ -12,6 +12,9 @@
 
 NAME = libft.a
 
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I $(INCLUDES_DIR)
+
 SRCS_DIR = ./sources
 OBJS_DIR = ./objects
 INCLUDES_DIR = ./includes
@@ -28,16 +31,11 @@ SOURCES = \
 	$(SRCS_DIR)/ft_strlen.c $(SRCS_DIR)/ft_strmapi.c $(SRCS_DIR)/ft_strncmp.c \
 	$(SRCS_DIR)/ft_strnstr.c $(SRCS_DIR)/ft_strrchr.c $(SRCS_DIR)/ft_strtrim.c \
 	$(SRCS_DIR)/ft_substr.c $(SRCS_DIR)/ft_tolower.c $(SRCS_DIR)/ft_toupper.c \
-	$(SRCS_DIR)/ft_lstnew_bonus.c $(SRCS_DIR)/ft_lstadd_front_bonus.c \
-	$(SRCS_DIR)/ft_lstsize_bonus.c $(SRCS_DIR)/ft_lstlast_bonus.c \
-	$(SRCS_DIR)/ft_lstadd_back_bonus.c $(SRCS_DIR)/ft_lstdelone_bonus.c \
-	$(SRCS_DIR)/ft_lstclear_bonus.c $(SRCS_DIR)/ft_lstiter_bonus.c \
-	$(SRCS_DIR)/ft_lstmap_bonus.c
-
+	$(SRCS_DIR)/ft_lstnew.c $(SRCS_DIR)/ft_lstadd_front.c $(SRCS_DIR)/ft_lstsize.c \
+	$(SRCS_DIR)/ft_lstlast.c $(SRCS_DIR)/ft_lstadd_back.c $(SRCS_DIR)/ft_lstdelone.c \
+	$(SRCS_DIR)/ft_lstmap.c $(SRCS_DIR)/ft_lstclear.c $(SRCS_DIR)/ft_lstiter.c \
+	
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
-
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR)
 
 all: $(NAME)
 
