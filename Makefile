@@ -1,16 +1,18 @@
 NAME = fdf
 
-SOURCES = fdf.c
-OBJECTS = $(SOURCES:.c=.o)
+SRCS_DIR = ./sources
+OBJS_DIR = ./objects
+INCLUDES_DIR = ./includes
+LIBS_DIR = ./libraries
 
-LIBFT_DIR = ./libft
+SOURCES = $(SRCS_DIR)/fdf.c
+OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
+
+LIBFT_DIR = $(LIBS_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
-INCLUDES = -I $(LIBFT_DIR)
-HEADERS = fdf.h
-
 CC = cc
-CFLAGS = -Wall -Wextra -Werror $(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes
 
 all: $(LIBFT) $(NAME)
 
@@ -20,7 +22,8 @@ $(LIBFT):
 $(NAME): $(OBJECTS) $(LIBFT)
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $@
 
-%.o: %.c $(HEADERS)
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES_DIR)/fdf.h
+	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
