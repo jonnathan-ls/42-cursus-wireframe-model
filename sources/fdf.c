@@ -1,13 +1,13 @@
 
 #include "fdf.h"
 #include "libft.h"
-#include <stdio.h>
+#include "ft_printf.h"
 
 int main(void)
 {
 	char	str[] = "Hello, World!";
 
-	printf("%s\n", str);
-	printf("Tamanho: %li\n", ft_strlen(str));
+	ft_printf("%s\n", str);
+	ft_printf("Tamanho: %i\n", ft_strlen(str));
 	return (0);
 }
