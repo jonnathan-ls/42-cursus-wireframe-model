@@ -6,7 +6,7 @@
 #    By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 20:44:31 by jlacerda          #+#    #+#              #
-#    Updated: 2024/10/21 21:29:54 by jlacerda         ###   ########.fr        #
+#    Updated: 2024/12/21 20:45:17 by jlacerda         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SOURCES = \
 	$(SRCS_DIR)/ft_lstnew.c $(SRCS_DIR)/ft_lstadd_front.c $(SRCS_DIR)/ft_lstsize.c \
 	$(SRCS_DIR)/ft_lstlast.c $(SRCS_DIR)/ft_lstadd_back.c $(SRCS_DIR)/ft_lstdelone.c \
 	$(SRCS_DIR)/ft_lstmap.c $(SRCS_DIR)/ft_lstclear.c $(SRCS_DIR)/ft_lstiter.c \
+	$(SRCS_DIR)/get_next_line.c
 	
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
