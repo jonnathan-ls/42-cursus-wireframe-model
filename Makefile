@@ -14,10 +14,14 @@ LIBFT = $(LIBFT_DIR)/libft.a
 PRINTF_DIR = $(LIBS_DIR)/printf
 PRINTF = $(PRINTF_DIR)/libftprintf.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes
+MLX_DIR = $(LIBS_DIR)/minilibx
+MLX = $(MLX_DIR)/libmlx.a
 
-all: $(LIBFT) $(PRINTF) $(NAME)
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes -I$(MLX_DIR)
+LDFLAGS = -L$(MLX_DIR) -lmlx -L/usr/include -lXext -lX11
+
+all: $(LIBFT) $(PRINTF) $(MLX) $(NAME)
 
 $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
@@ -25,8 +29,11 @@ $(LIBFT):
 $(PRINTF):
 	$(MAKE) -C $(PRINTF_DIR)
 
-$(NAME): $(OBJECTS) $(LIBFT) $(PRINTF)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) -o $@
+$(MLX):
+	$(MAKE) -C $(MLX_DIR)
+
+$(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX)
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(LDFLAGS) -o $@
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES_DIR)/fdf.h
 	@mkdir -p $(OBJS_DIR)
@@ -36,6 +43,7 @@ clean:
 	rm -f $(OBJECTS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(PRINTF_DIR) clean
+	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)
