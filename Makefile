@@ -16,6 +16,7 @@ PRINTF = $(PRINTF_DIR)/libftprintf.a
 
 MLX_DIR = $(LIBS_DIR)/minilibx
 MLX = $(MLX_DIR)/libmlx.a
+MATH = -lm
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes -I$(MLX_DIR)
@@ -33,7 +34,7 @@ $(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
 $(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX)
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $@
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES_DIR)/fdf.h
 	@mkdir -p $(OBJS_DIR)
