@@ -5,7 +5,10 @@ OBJS_DIR = ./objects
 INCLUDES_DIR = ./includes
 LIBS_DIR = ./libraries
 
-SOURCES = $(SRCS_DIR)/fdf.c
+SOURCES = $(SRCS_DIR)/fdf.c \
+	$(SRCS_DIR)/ft_get_data.c \
+	$(SRCS_DIR)/ft_set_points.c 
+
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 LIBFT_DIR = $(LIBS_DIR)/libft

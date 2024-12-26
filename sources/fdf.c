@@ -6,31 +6,33 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/25 15:35:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2024/12/25 20:44:54 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+int	main(int argc, char **argv)
 {
-	char	*dst;
+	char	***data;
+	t_point	**points;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
-int	main(void)
-{
-	ft_printf("Hello, world!\n");
-	ft_printf("Math: %s\n", ft_itoa((int)round(42.42)));
-	return (0);
+	if (argc != 2)
+	{
+		ft_printf("Error: invalid number of arguments.\n");
+		return (1);
+	}
+	ft_printf("Reading data from file...\n");
+	data = ft_get_data(argv[1]);
+	if (!data)
+	{
+		ft_printf("Error reading data from file.\n");
+		return (1);
+	}
+	points = ft_set_points(data);
+	while (*points)
+	{
+		ft_printf("x: %d, y: %d, z: %d, color: %d\n", (*points)->x, (*points)->y, (*points)->z, (*points)->color);
+		points++;
+	}
 }
