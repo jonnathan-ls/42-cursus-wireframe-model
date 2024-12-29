@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/29 19:52:06 by jlacerda         ###   ########.fr       */
+/*   Updated: 2024/12/29 20:10:27 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
-# include "libft.h"
-# include "ft_printf.h"
-# include "get_next_line.h"
-# include "mlx.h"
-# include <math.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include "macros.h"
-# include "structs.h"
-# include "fdf_errors.h"
+#ifndef STRUCTS_H
+# define STRUCTS_H
 
-char	***ft_get_data(char *file_path);
-t_point	**ft_set_points(char ***data);
+typedef struct s_point
+{
+	int	x;
+	int	y;
+	int	z;
+	int	color;
+}	t_point;
+
+typedef struct s_image
+{
+	void	*img_ptr;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_image;
+
+typedef struct s_config
+{
+	void	*mlx_ptr;
+	void	*win_ptr;
+	void	*img_ptr;
+	t_image	img;
+	t_point	**points;
+}	t_config;
 
 #endif

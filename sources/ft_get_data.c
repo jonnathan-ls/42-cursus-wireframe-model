@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 15:44:44 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/25 20:42:05 by jlacerda         ###   ########.fr       */
+/*   Updated: 2024/12/29 18:20:06 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,19 @@ static char	***ft_extract_data(char *data)
 	return (matrix);
 }
 
-char	***ft_get_data(char *file)
+char	***ft_get_data(char *file_path)
 {
 	int		fd;
 	char	*temp;
 	char	*line;
 	char	*data;
 
-	fd = open(file, O_RDONLY);
-	if (fd < 0)
+	fd = open(file_path, O_RDONLY);
+	if (fd < ZERO_VALUE)
+	{
+		ft_printf(FILE_NOT_FOUND_ERROR, file_path);
 		return (NULL);
+	}
 	data = ft_strdup(EMPTY_STRING);
 	if (!data)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/25 15:44:44 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/25 20:48:47 by jlacerda         ###   ########.fr       */
+/*   Updated: 2024/12/29 19:59:35 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static void	assign_points(t_point **points, char ***data, int *index)
 		j = 0;
 		while (data[i][j])
 		{
-			color = -1;
+			color = DEFAULT_COLOR;
 			has_color = ft_strchr(data[i][j], ',') != NULL;
 			if (has_color)
 				color = ft_strtol(ft_strchr(data[i][j], ',') + 1);
@@ -89,6 +89,8 @@ t_point	**ft_set_points(char ***data)
 	t_point	**points;
 	int		points_index;
 
+	if (!data)
+		return (NULL);
 	count = ft_count_points(data);
 	points = (t_point **)malloc(sizeof(t_point *) * (count + 1));
 	if (!points)

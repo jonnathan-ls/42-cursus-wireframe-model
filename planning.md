@@ -11,8 +11,8 @@ Criar um modelo de wireframe simples de uma paisagem 3D, representado por segmen
 - [x] Configurar MiniLibX
 - [x] Configurar biblioteca math
 - [x] Configurar Makefile
-- [ ] Implementar leitura do arquivo .fdf
-- [ ] Armazenar dados em estrutura apropriada
+- [x] Implementar leitura do arquivo .fdf
+- [x] Armazenar dados em estrutura apropriada
 - [ ] Implementar projeção isométrica
 - [ ] Desenhar wireframe
 - [ ] Criar janela com MiniLibX

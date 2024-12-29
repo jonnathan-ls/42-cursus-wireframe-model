@@ -7,7 +7,8 @@ LIBS_DIR = ./libraries
 
 SOURCES = $(SRCS_DIR)/fdf.c \
 	$(SRCS_DIR)/ft_get_data.c \
-	$(SRCS_DIR)/ft_set_points.c 
+	$(SRCS_DIR)/ft_set_points.c \
+	$(SRCS_DIR)/fdf_errors.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
