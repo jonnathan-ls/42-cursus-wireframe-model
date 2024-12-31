@@ -20,7 +20,7 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define WINDOW_TITLE "FdF"
-# define DEFAULT_COLOR	0xFFFFFF
+# define DEFAULT_COLOR	0xFFFF00
 
 # define SPACE_CHAR ' '
 # define EMPTY_STRING ""
