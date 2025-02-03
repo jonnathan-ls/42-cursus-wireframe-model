@@ -20,11 +20,19 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define WINDOW_TITLE "FdF"
-# define DEFAULT_COLOR	0xFFFF00
-
+# define WHITE 0xFFFFFF
+# define DEFAULT_COLOR	WHITE
 # define SPACE_CHAR ' '
+# define COMMA_CHAR ','
 # define EMPTY_STRING ""
 # define BREAK_LINE_CHAR '\n'
+
+
+#define ANGLE_ISO 0.5235988  // 30° em radianos
+#define ZOOM 20
+#define WIN_WIDTH 1000
+#define WIN_HEIGHT 1000
+
 
 # define FILE_PATH_NOT_PROVIDED_ERROR "File path not provided\n"
 # define FILE_ARGC_EXPECTED "The correct format is: ./fdf <path/file>\n"

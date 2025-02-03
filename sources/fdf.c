@@ -12,56 +12,202 @@
 
 #include "fdf.h"
 
-void custom_mlx_pixel_put(t_image *img, int x, int y, int color)
+int on_key_press(int keycode)
 {
- char *dst;
-
- if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-		return;
- dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
- *(unsigned int *)dst = color;
+	printf("Key pressed: %d\n", keycode);
+	return (0);
 }
 
-int main(int argc, char **argv)
+void	free_split(char **split)
 {
- t_config conf;
+	int	i;
 
-	if (argc < 2)
-					return (fdf_file_path_not_provided_error());
-	conf.mlx_ptr = mlx_init();
-	if (!conf.mlx_ptr)
-					return (fdf_mlx_init_error());
-	conf.win_ptr = mlx_new_window(conf.mlx_ptr, WIDTH, HEIGHT, WINDOW_TITLE);
-	if (!conf.win_ptr)
-					return (fdf_mlx_window_creation_error(conf.mlx_ptr));
-	conf.img.img_ptr = mlx_new_image(conf.mlx_ptr, WIDTH, HEIGHT);
-	conf.img.addr = mlx_get_data_addr(conf.img.img_ptr, &conf.img.bits_per_pixel, &conf.img.line_length, &conf.img.endian);
-	conf.img.width = WIDTH;
-	conf.img.height = HEIGHT;
-	if (!conf.img.addr) {
-					perror("Failed to allocate memory for image");
-					return 1;
+	if (!split)
+		return ;
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
 	}
-	set_points(&conf, ft_get_data(argv[1]));
-	if (!conf.points)
-					return (fdf_set_points_error(conf.mlx_ptr, conf.win_ptr));
+	free(split);
+}
 
-	int i = 10;
-	int j = 20;
-	t_point initialPoint = {i, j, 0, DEFAULT_COLOR};
-	t_point finalPoint = {i + 1500, j + 1000, 0, DEFAULT_COLOR};
-	conf.draw_params = (t_draw_params){initialPoint, finalPoint, 0, 0, 0.0, &conf.img};
-	draw_line(&conf.draw_params);
+void set_sizes(t_map *map, char *file_path)
+{
+	int fd;
+	char *line;
+	char **words;
 
-	t_point finalPoint2 = {i + 500, j + 100, 0, DEFAULT_COLOR};
-	conf.draw_params = (t_draw_params){initialPoint, finalPoint2, 0, 0, 0.0, &conf.img};
-	draw_line(&conf.draw_params);
+	fd = open(file_path, O_RDONLY);
+	line = get_next_line(fd);
+	words = ft_split(line, SPACE_CHAR);
+	map->width = ft_strslen(words);
+	map->height = 0;
+	while (line)
+	{
+		map->height++;
+		free(line);
+		line = get_next_line(fd);
+	}
+	free_split(words);
+	close(fd);
+}
 
-	t_point finalPoint3 = {i + 150, j + 10, 0, DEFAULT_COLOR + 100};
-	conf.draw_params = (t_draw_params){initialPoint, finalPoint3, 0, 0, 0.0, &conf.img};
-	draw_line(&conf.draw_params);
+void set_points(t_point *line_points, char *line)
+{
+	int index;
+	char **points;
+	char *comma_ptr;
+	bool has_color;
 
-	mlx_put_image_to_window(conf.mlx_ptr, conf.win_ptr, conf.img.img_ptr, 0, 0);
-	mlx_loop(conf.mlx_ptr);
+	index = 0;
+	points = ft_split(line, SPACE_CHAR);
+	while (points[index])
+	{
+		comma_ptr = ft_strchr(points[index], COMMA_CHAR);
+		has_color = comma_ptr != NULL;
+		line_points[index].value = ft_atoi(points[index]);
+		if (has_color)
+			line_points[index].color = ft_strtol(comma_ptr + 1);
+		else
+			line_points[index].color = DEFAULT_COLOR;
+		free(points[index]);
+		index++;
+	}
+	free(points);
+}
+void set_map(t_map *map, char *file_path)
+{
+	int fd;
+	char *line;
+	int index;
+
+	map->points = (t_point **)malloc(sizeof(t_point *) * (map->height + 1));
+	set_sizes(map, file_path);
+	index = 0;
+	while (index < map->height)
+		map->points[index++] = (t_point *)malloc(sizeof(t_point) * (map->width + 1));
+	fd = open(file_path, O_RDONLY);
+
+	index = 0;
+	line = NULL;
+	while (index < map->height)
+	{
+		line = get_next_line(fd);
+		set_points(map->points[index], line);
+		free(line);
+		index++;
+	}
+	map->points[index] = NULL;
+	close(fd);
+}
+
+unsigned int get_abs_max(float a, float b)
+{
+	if (fabs(a) > fabs(b))
+		return ((int)fabs(a));
+	return ((int)fabs(b));
+}
+
+void isometric_projection(float *x, float *y, float z)
+{
+	*x = (*x - *y) * cos(0.8);
+	*y = (*x + *y) * sin(0.8) - z;
+}
+
+void brasenham_line(float ix, float iy, float fx, float fy, t_map *map)
+{
+	float x_step;
+	float y_step;
+	int max;
+	int zoom;
+	int color;
+	
+	int iz = map->points[(int)iy][(int)ix].value;
+	int fz = map->points[(int)fy][(int)fx].value;
+
+
+	// ---------- ZOOM ----------------
+	zoom = 20;
+	ix = ix * zoom;
+	iy = iy * zoom;
+	fx = fx * zoom;
+	fy = fy * zoom;
+	// ---------- Color ----------------
+	color = (iz) ? 0xe80c0c : 0xffffff;
+	// ---------- 3D ----------------
+	isometric_projection(&ix, &iy, iz);
+	isometric_projection(&fx, &fy, fz);
+	// ---------- Shift ---------------
+	ix += 150;
+	iy += 150;
+	fx += 150;
+	fy += 150;
+	// ---------- Bresenham ---------------
+	x_step = fx - ix;
+	y_step = fy - iy;
+	max = get_abs_max(x_step, y_step);
+	x_step /= max;
+	y_step /= max;
+	while ((int)(ix - fx) || (int)(iy - fy))
+
+	{
+		mlx_pixel_put(map->mlx_ptr, map->win_ptr, ix, iy, color);
+		ix += x_step;
+		iy += y_step;
+	}
+}
+
+void draw_map(t_map *map)
+{
+	int x;
+	int y;
+
+	x = 0;
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if (x < map->width - 1)
+				brasenham_line(x, y, x + 1, y, map);
+			if (y < map->height - 1)
+				brasenham_line(x, y, x, y + 1, map);
+			x++;
+		}
+		y++;
+	}
+}
+
+
+int main(int argc, char **argv)
+
+{
+ t_map map;
+
+
+	if (argc != 2)
+	{
+		ft_printf("Error: Invalid number of arguments\n");
+		return (EXIT_FAILURE);
+	}
+	set_map(&map, argv[1]);
+	map.mlx_ptr = mlx_init();
+	map.win_ptr = mlx_new_window(map.mlx_ptr, 1000, 1000, "FDF");
+	map.img_ptr = mlx_new_image(map.mlx_ptr, 1000, 1000);
+	
+	// map.mlx_ptr = mlx_init();
+	// map.win_ptr = mlx_new_window(map.mlx_ptr, WIDTH, HEIGHT, "FDF");
+	// map.img_ptr = mlx_new_image(map.mlx_ptr, WIDTH, HEIGHT);
+	// map.image->addr = mlx_get_data_addr(map.image->img_ptr, &map.image->bits_per_pixel, &map.image->line_length, &map.image->endian);
+	// map.image->width = map.width;
+	// map.image->height = map.height;
+
+	draw_map(&map);
+	mlx_key_hook(map.win_ptr, on_key_press, NULL);
+	mlx_loop(map.mlx_ptr);
+
 	return (EXIT_SUCCESS);
 }

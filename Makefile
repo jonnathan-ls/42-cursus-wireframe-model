@@ -9,7 +9,9 @@ SOURCES = $(SRCS_DIR)/fdf.c \
 	$(SRCS_DIR)/ft_get_data.c \
 	$(SRCS_DIR)/set_points.c \
 	$(SRCS_DIR)/fdf_errors.c \
-	$(SRCS_DIR)/draw.c
+	$(SRCS_DIR)/draw.c \
+	$(SRCS_DIR)/isometric.c 
+
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
@@ -24,7 +26,7 @@ MLX = $(MLX_DIR)/libmlx.a
 MATH = -lm
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes -I$(MLX_DIR)
+CFLAGS = -Wall -Wextra -Werror -g -I$(INCLUDES_DIR) -I$(LIBFT_DIR)/includes -I$(PRINTF_DIR)/includes -I$(MLX_DIR)
 LDFLAGS = -L$(MLX_DIR) -lmlx -L/usr/include -lXext -lX11
 
 all: $(LIBFT) $(PRINTF) $(MLX) $(NAME)

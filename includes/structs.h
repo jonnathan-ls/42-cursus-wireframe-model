@@ -15,9 +15,7 @@
 
 typedef struct s_point
 {
-	int	x;
-	int	y;
-	int	z;
+	int	value;
 	int	color;
 }	t_point;
 
@@ -73,5 +71,26 @@ typedef struct s_config
 	t_point			**points;
 	t_draw_params	draw_params;
 }	t_config;
+
+typedef struct s_map {
+	int     width;     // Número de colunas
+	int     height;    // Número de linhas
+	t_point **points;  // Matriz de pontos com altitude e cor
+	int     lowest_point;     // Valor mínimo de altitude
+	int     highest_point;     // Valor maximo de altitude
+	void			*mlx_ptr;
+	void			*win_ptr;
+	void			*img_ptr;
+	t_image			*image;
+} t_map;
+
+typedef struct s_line {
+	int ix;
+	int iy;
+	int fx;
+	int fy;
+	float slope;
+	int is_vertical;
+} t_line;
 
 #endif

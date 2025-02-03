@@ -23,10 +23,12 @@
 # include "structs.h"
 # include "fdf_errors.h"
 # include <stdio.h>
+# include <stdbool.h>
 
+void process_points(t_config *conf);
 char	***ft_get_data(char *file_path);
-void draw_line(t_draw_params *params);
-void set_points(t_config *config, char ***data);
-void	custom_mlx_pixel_put(t_image *img, int x, int y, int color);
+void draw_line(int x0, int y0, int x1, int y1, int color, t_image *img);
+// void set_points(t_config *config, char ***data);
+// void	custom_mlx_pixel_put(t_image *img, int x, int y, int color);
 
 #endif

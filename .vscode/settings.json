@@ -1,0 +1,18 @@
+{
+	"files.associations": {
+		"push_swap.h": "c",
+		"chrono": "c",
+		"variant": "c",
+		"random": "cpp",
+		"array": "c",
+		"bitset": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"regex": "c",
+		"utility": "c",
+		"libft.h": "c",
+		"stdlib.h": "c",
+		"stdbool.h": "c",
+		"ranges": "c"
+	}
+}
