@@ -12,9 +12,26 @@
 
 #include "fdf.h"
 
-int on_key_press(int keycode)
+void draw_map(t_map *map);
+
+int on_key_press(int keycode, t_map	*map)
 {
 	printf("Key pressed: %d\n", keycode);
+	if (map != NULL)
+	{
+		if (keycode == 65362)
+			map->shift_y -= 10;
+		else if (keycode == 65364)
+			map->shift_x += 10;
+		else if (keycode == 65363)
+			map->shift_y += 10;
+		else if (keycode == 65361)
+			map->shift_x -= 10;
+		else if (keycode == 65307)
+			exit(EXIT_SUCCESS);
+		mlx_clear_window(map->mlx_ptr, map->win_ptr);
+		draw_map(map);
+	}
 	return (0);
 }
 
@@ -140,10 +157,10 @@ void brasenham_line(float ix, float iy, float fx, float fy, t_map *map)
 	isometric_projection(&ix, &iy, iz);
 	isometric_projection(&fx, &fy, fz);
 	// ---------- Shift ---------------
-	ix += 150;
-	iy += 150;
-	fx += 150;
-	fy += 150;
+	ix += map->shift_x;
+	iy += map->shift_y;
+	fx += map->shift_x;
+	fy += map->shift_y;
 	// ---------- Bresenham ---------------
 	x_step = fx - ix;
 	y_step = fy - iy;
@@ -205,8 +222,10 @@ int main(int argc, char **argv)
 	// map.image->width = map.width;
 	// map.image->height = map.height;
 
+	map.shift_x = 150;
+	map.shift_y = 150;
 	draw_map(&map);
-	mlx_key_hook(map.win_ptr, on_key_press, NULL);
+	mlx_key_hook(map.win_ptr, on_key_press, &map);
 	mlx_loop(map.mlx_ptr);
 
 	return (EXIT_SUCCESS);
