@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/29 20:28:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:18:32 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,42 @@
 
 void draw_map(t_map *map);
 
+
+void rotate_map(int keycode, t_map *map)
+{
+	if (keycode == PLUS_KEY_1 || keycode == PLUS_KEY_2)
+	{
+		map->rotate_factor_in_x += ROTATE_FACTOR;
+		map->rotate_factor_in_y += ROTATE_FACTOR;
+	}
+	else if (keycode == MINUS_KEY_1 || keycode == MINUS_KEY_2)
+	{
+		map->rotate_factor_in_x -= ROTATE_FACTOR;
+		map->rotate_factor_in_y -= ROTATE_FACTOR;
+	}
+}
+
+void	move_map(int keycode, t_map *map)
+{
+	if (keycode == UP_KEY)
+		map->shift_factor_in_y -= SHIFT_FACTOR;
+	else if (keycode == DOWN_KEY)
+		map->shift_factor_in_y += SHIFT_FACTOR;
+	else if (keycode == LEFT_KEY)
+		map->shift_factor_in_x -= SHIFT_FACTOR;
+	else if (keycode == RIGHT_KEY)
+		map->shift_factor_in_x += SHIFT_FACTOR;
+}
+
 int on_key_press(int keycode, t_map	*map)
 {
 	printf("Key pressed: %d\n", keycode);
 	if (map != NULL)
 	{
-		if (keycode == 65362)
-			map->shift_y -= 10;
-		else if (keycode == 65364)
-			map->shift_x += 10;
-		else if (keycode == 65363)
-			map->shift_y += 10;
-		else if (keycode == 65361)
-			map->shift_x -= 10;
-		else if (keycode == 65307)
+		if (keycode == ESC_KEY)
 			exit(EXIT_SUCCESS);
+		move_map(keycode, map);
+		rotate_map(keycode, map);
 		mlx_clear_window(map->mlx_ptr, map->win_ptr);
 		draw_map(map);
 	}
@@ -157,10 +178,15 @@ void brasenham_line(float ix, float iy, float fx, float fy, t_map *map)
 	isometric_projection(&ix, &iy, iz);
 	isometric_projection(&fx, &fy, fz);
 	// ---------- Shift ---------------
-	ix += map->shift_x;
-	iy += map->shift_y;
-	fx += map->shift_x;
-	fy += map->shift_y;
+	ix += map->shift_factor_in_x;
+	iy += map->shift_factor_in_y;
+	fx += map->shift_factor_in_x;
+	fy += map->shift_factor_in_y;
+	// ---------- Rotate ----------------
+	ix +=	ix * cos(map->rotate_factor_in_x) -	iy * sin(map->rotate_factor_in_y);
+	iy +=	ix * sin(map->rotate_factor_in_x) +	iy * cos(map->rotate_factor_in_y);
+	fx +=	fx * cos(map->rotate_factor_in_x) -	fy * sin(map->rotate_factor_in_y);
+	fy +=	fx * sin(map->rotate_factor_in_x) +	fy * cos(map->rotate_factor_in_y);
 	// ---------- Bresenham ---------------
 	x_step = fx - ix;
 	y_step = fy - iy;
@@ -221,9 +247,10 @@ int main(int argc, char **argv)
 	// map.image->addr = mlx_get_data_addr(map.image->img_ptr, &map.image->bits_per_pixel, &map.image->line_length, &map.image->endian);
 	// map.image->width = map.width;
 	// map.image->height = map.height;
-
-	map.shift_x = 150;
-	map.shift_y = 150;
+	map.shift_factor_in_x = SHIFT_FACTOR;
+	map.shift_factor_in_y = SHIFT_FACTOR;
+	map.rotate_factor_in_x = ROTATE_FACTOR;
+	map.rotate_factor_in_y = ROTATE_FACTOR;
 	draw_map(&map);
 	mlx_key_hook(map.win_ptr, on_key_press, &map);
 	mlx_loop(map.mlx_ptr);

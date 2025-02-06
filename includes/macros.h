@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2024/12/29 20:11:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:18:21 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@
 #define ZOOM 20
 #define WIN_WIDTH 1000
 #define WIN_HEIGHT 1000
+
+# define SHIFT_FACTOR 150
+# define ROTATE_FACTOR 1
+# define ESC_KEY 65307
+# define UP_KEY 65362
+# define DOWN_KEY 65364
+# define LEFT_KEY 65361
+#	define RIGHT_KEY 65363
+# define PLUS_KEY 65451
+# define MINUS_KEY 61
+# define PLUS_KEY_1 65451
+# define PLUS_KEY_2 61
+# define MINUS_KEY_1 65453
+# define MINUS_KEY_2 45
 
 
 # define FILE_PATH_NOT_PROVIDED_ERROR "File path not provided\n"

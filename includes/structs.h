@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/03 22:54:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/05 21:14:45 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,10 @@ typedef struct s_config
 }	t_config;
 
 typedef struct s_map {
-	int shift_x;
-	int shift_y;
+	int shift_factor_in_x;
+	int shift_factor_in_y;
+	double rotate_factor_in_x;
+	double rotate_factor_in_y;
 	int     width;     // Número de colunas
 	int     height;    // Número de linhas
 	t_point **points;  // Matriz de pontos com altitude e cor
