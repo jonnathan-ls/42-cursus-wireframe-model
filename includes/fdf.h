@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/08 20:47:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:23:13 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,14 @@
 # include "macros.h"
 # include "structs.h"
 
+void	draw_map(t_fdf *fdf);
 void	free_split(char **split);
 void	free_mallocs(t_fdf *fdf);
 bool	config_map_values(t_fdf *fdf);
+void	config_coordinates(t_fdf *fdf);
 bool	validates_map_values(t_fdf *fdf);
 void	config_map_dimensions(t_fdf *fdf);
 void	exit_with_error(char *str, t_fdf *fdf);
+void	remove_breakline_char(char *line);
 
 #endif

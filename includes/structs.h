@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/08 22:18:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/09 16:18:46 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,31 @@
 # define STRUCTS_H
 # include	<stdbool.h>
 
-typedef struct s_point
+typedef struct s_coordinate
 {
-	int	value;
+	int	x;
+	int	y;
+	int	z;
 	int	color;
-}	t_point;
+}	t_coordinate;
 
 typedef struct s_image
 {
-	void	*img_ptr;
 	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
+	void	*img_ptr;
 	int		width;
+	int		endian;
 	int		height;
+	int		line_length;
+	int		bits_per_pixel;
 }	t_image;
 
 typedef struct s_map {
 	unsigned int	width;
 	unsigned int	height;
-	int				shift_factor_in_x;
-	int				shift_factor_in_y;
-	double			rotate_factor_in_x;
-	double			rotate_factor_in_y;
-	t_point			**points;
-	int				lowest_point;
-	int				highest_point;
 	t_image			*image;
 	char			***values;
+	t_coordinate	**coordinates;
 }	t_map;
 
 /**
@@ -75,6 +71,9 @@ typedef struct s_fdf
 	t_window	window;
 	char		*file_path;
 	bool		error_flag;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	void		*img_ptr;
 }	t_fdf;
 
 #endif

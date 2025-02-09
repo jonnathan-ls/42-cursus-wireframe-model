@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/08 20:47:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:16:11 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,23 @@ void	free_mallocs(t_fdf *fdf)
 	unsigned int	line;
 	unsigned int	column;
 
-	if (fdf->map.values != NULL)
+	line = 0;
+	while (line < fdf->map.height)
 	{
-		line = 0;
-		while (fdf->map.values[line] != NULL)
+		column = 0;
+		while (column < fdf->map.width)
 		{
-			column = 0;
-			while (fdf->map.values[line][column] != NULL)
-			{
+			if (fdf->map.values[line][column] != NULL)
 				free(fdf->map.values[line][column]);
-				column++;
-			}
-			free(fdf->map.values[line]);
-			line++;
+			column++;
 		}
-		free(fdf->map.values);
+		free(fdf->map.values[line]);
+		if (fdf->map.coordinates[line] != NULL)
+			free(fdf->map.coordinates[line]);
+		line++;
 	}
+	free(fdf->map.values);
+	free(fdf->map.coordinates);
 }
 
 void	exit_with_error(char *str, t_fdf *fdf)
@@ -58,3 +59,17 @@ void	exit_with_error(char *str, t_fdf *fdf)
 	exit(EXIT_FAILURE);
 }
 
+void	remove_breakline_char(char *line)
+{
+	int	i;
+
+	i = 0;
+	if (line == NULL)
+		return ;
+	while (line[i])
+	{
+		if (line[i] == BREAK_LINE_CHAR)
+			line[i] = NULL_CHAR;
+		i++;
+	}
+}

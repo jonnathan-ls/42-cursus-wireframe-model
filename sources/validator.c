@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/08 20:24:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:28:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,23 @@ static bool	is_valid_integer(const char *number_str)
 	return (true);
 }
 
+static char	*get_num_str(char *value_str)
+{
+	char			*comma_ptr;
+
+	comma_ptr = ft_strchr(value_str, COMMA_CHAR);
+	if (comma_ptr != NULL)
+		return (ft_substr(value_str, 0, comma_ptr - value_str));
+	else
+		return (ft_strdup(value_str));
+}
+
 bool	validates_map_values(t_fdf *fdf)
 {
-	unsigned int	line;
-	unsigned int	column;
 	char			*num_str;
 	char			*value_str;
-	char			*comma_ptr;
+	unsigned int	line;
+	unsigned int	column;
 
 	line = 0;
 	while (fdf->map.values[line] != NULL)
@@ -95,13 +105,10 @@ bool	validates_map_values(t_fdf *fdf)
 		while (fdf->map.values[line][column] != NULL)
 		{
 			value_str = fdf->map.values[line][column];
-			comma_ptr = ft_strchr(value_str, COMMA_CHAR);
-			if (comma_ptr != NULL)
-				num_str = ft_substr(value_str, 0, comma_ptr - value_str);
-			else
-				num_str = value_str;
+			num_str = get_num_str(value_str);
 			if (!is_valid_integer(num_str))
-				return (false);
+				return (free(num_str), false);
+			free(num_str);
 			column++;
 		}
 		line++;

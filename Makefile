@@ -8,7 +8,9 @@ LIBS_DIR = ./libraries
 SOURCES = $(SRCS_DIR)/fdf.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/utils.c \
-	$(SRCS_DIR)/initializer.c	
+	$(SRCS_DIR)/config_dimensions.c	\
+	$(SRCS_DIR)/mapper.c \
+	$(SRCS_DIR)/drawer.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

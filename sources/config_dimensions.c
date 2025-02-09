@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initializer.c                                      :+:      :+:    :+:   */
+/*   config_dimensions.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/08 22:38:30 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/10 22:15:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,6 @@ static void	set_map_height(t_fdf *fdf)
 	}
 	fdf->map.height = height;
 	close(fd);
-}
-
-static void	remove_breakline_char(char *line)
-{
-	int	i;
-
-	i = 0;
-	if (line == NULL)
-		return ;
-	while (line[i])
-	{
-		if (line[i] == BREAK_LINE_CHAR)
-			line[i] = NULL_CHAR;
-		i++;
-	}
 }
 
 static void	read_lines(int fd, t_fdf *fdf)
@@ -74,10 +59,11 @@ static void	read_lines(int fd, t_fdf *fdf)
 	}
 }
 
-void	set_map_width(t_fdf *fdf)
+static void	set_map_width(t_fdf *fdf)
 {
 	int		fd;
 
+	fdf->error_flag = false;
 	fd = open(fdf->file_path, O_RDONLY);
 	read_lines(fd, fdf);
 	if (fdf->error_flag)
@@ -91,29 +77,4 @@ void	config_map_dimensions(t_fdf *fdf)
 	fdf->map.height = 0;
 	set_map_width(fdf);
 	set_map_height(fdf);
-}
-
-bool	config_map_values(t_fdf *fdf)
-{
-	int				fd;
-	unsigned int	index;
-	char			*line_str;
-
-	index = 0;
-	line_str = NULL;
-	fd = open(fdf->file_path, O_RDONLY);
-	fdf->map.values = (char ***)malloc(sizeof(char **) * (fdf->map.height + 1));
-	while (true)
-	{
-		line_str = get_next_line(fd);
-		if (line_str == NULL)
-			break ;
-		fdf->map.values[index] = ft_split(line_str, SPACE_CHAR);
-		if (fdf->map.values[index] == NULL)
-			return (false);
-		free(line_str);
-		index++;
-	}
-	fdf->map.values[index] = NULL;
-	return (true);
 }
