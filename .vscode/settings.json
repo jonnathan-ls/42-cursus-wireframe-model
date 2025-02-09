@@ -13,6 +13,19 @@
 		"libft.h": "c",
 		"stdlib.h": "c",
 		"stdbool.h": "c",
-		"ranges": "c"
+		"ranges": "c",
+		"type_traits": "c",
+		"cmath": "cpp",
+		"compare": "cpp",
+		"concepts": "cpp",
+		"limits": "cpp",
+		"new": "cpp",
+		"*.tcc": "cpp",
+		"typeinfo": "cpp",
+		"fdf.h": "c",
+		"limits.h": "c",
+		"get_next_line.h": "c",
+		"structs.h": "c",
+		"ft_printf.h": "c"
 	}
 }

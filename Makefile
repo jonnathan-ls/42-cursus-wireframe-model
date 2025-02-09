@@ -6,12 +6,9 @@ INCLUDES_DIR = ./includes
 LIBS_DIR = ./libraries
 
 SOURCES = $(SRCS_DIR)/fdf.c \
-	$(SRCS_DIR)/ft_get_data.c \
-	$(SRCS_DIR)/set_points.c \
-	$(SRCS_DIR)/fdf_errors.c \
-	$(SRCS_DIR)/draw.c \
-	$(SRCS_DIR)/isometric.c 
-
+	$(SRCS_DIR)/validator.c \
+	$(SRCS_DIR)/utils.c \
+	$(SRCS_DIR)/initializer.c	
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
