@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/09 16:26:49 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:32:22 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define MACROS_H
 
 # define WINDOW_TITLE "FdF"
-# define WINDOW_WIDTH 1024
-# define WINDOW_HEIGHT 600
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define WHITE 0xFFFFFF
 # define DEFAULT_COLOR	WHITE
 # define SPACE_CHAR ' '

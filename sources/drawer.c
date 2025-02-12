@@ -6,21 +6,11 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/10 22:15:01 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:33:17 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// static void custom_mlx_pixel_put(t_image *img, int x, int y, int color)
-// {
-//  char *dst;
-
-//  if (x < 0 || x >= img->width || y < 0 || y >= img->height)
-// 		return;
-//  dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
-//  *(unsigned int *)dst = color;
-// }
 
 unsigned int get_abs_max(float a, float b)
 {
@@ -43,13 +33,10 @@ void brasenham_line(float ix, float iy, float fx, float fy, t_fdf *fdf)
 	int		zoom;
 	int		color;
 
-	printf("ix: %f, iy: %f, fx: %f, fy: %f\n", ix, iy, fx, fy);
-	// printf("int)iy: %d, (int)ix: %d, (int)fy: %d, (int)fx: %d\n", (int)iy, (int)ix, (int)fy, (int)fx);
 	int iz = fdf->map.coordinates[(int)iy][(int)ix].z;
 	int fz = fdf->map.coordinates[(int)fy][(int)fx].z;
-	// printf("iz: %d, fz: %d\n", iz, fz);
 	// ---------- ZOOM ----------------
-	zoom = 20;
+	zoom = 15;
 	ix = ix * zoom;
 	iy = iy * zoom;
 	fx = fx * zoom;
@@ -60,7 +47,7 @@ void brasenham_line(float ix, float iy, float fx, float fy, t_fdf *fdf)
 	isometric_projection(&ix, &iy, iz);
 	isometric_projection(&fx, &fy, fz);
 	// ---------- Shift ---------------
-	int shift = 150;
+	int shift = 200;
 	ix += shift;
 	iy += shift;
 	fx += shift;
@@ -69,11 +56,13 @@ void brasenham_line(float ix, float iy, float fx, float fy, t_fdf *fdf)
 	x_step = fx - ix;
 	y_step = fy - iy;
 	max = get_abs_max(x_step, y_step);
+	if (max == 0)
+		max = 1;
 	x_step /= max;
 	y_step /= max;
 	while ((int)(ix - fx) || (int)(iy - fy))
 	{
-		mlx_pixel_put(fdf->mlx_ptr, fdf->win_ptr, ix, iy, color);
+		custom_mlx_pixel_put(fdf, ix, iy, color);
 		ix += x_step;
 		iy += y_step;
 	}

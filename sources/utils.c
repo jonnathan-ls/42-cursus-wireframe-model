@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/10 22:16:11 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:11:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,16 @@ void	remove_breakline_char(char *line)
 			line[i] = NULL_CHAR;
 		i++;
 	}
+}
+
+void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
+{
+	char	*dst;
+	t_image	*img;
+
+	img = fdf->map.image;
+	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
+		return ;
+	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
+	*(unsigned int *)dst = color;
 }

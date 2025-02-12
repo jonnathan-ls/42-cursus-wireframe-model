@@ -6,13 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/09 16:18:46 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:23:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
-# include	<stdbool.h>
+# include <stdbool.h>
 
 typedef struct s_coordinate
 {
@@ -33,7 +33,8 @@ typedef struct s_image
 	int		bits_per_pixel;
 }	t_image;
 
-typedef struct s_map {
+typedef struct s_map
+{
 	unsigned int	width;
 	unsigned int	height;
 	t_image			*image;
@@ -65,6 +66,25 @@ typedef struct s_window
 	t_map	map;
 }	t_window;
 
+typedef struct s_factors
+{
+	int	zoom;
+	int	displacement;
+}	t_factors;
+
+typedef struct s_draw_params
+{
+	float	initial_x;
+	float	initial_y;
+	float	final_x;
+	float	final_y;
+	int	initial_z;
+	int	final_z;
+	float	step_x;
+	float	step_y;
+	int color;
+}	t_draw_params;
+
 typedef struct s_fdf
 {
 	t_map		map;
@@ -74,6 +94,7 @@ typedef struct s_fdf
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*img_ptr;
+	t_factors	factors;
 }	t_fdf;
 
 #endif

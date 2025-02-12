@@ -6,7 +6,7 @@
       "type": "cppdbg",
       "request": "launch",
       "program": "${workspaceFolder}/fdf",
-      "args": [ "basic.fdf" ], 
+      "args": [ "resources/maps/julia.fdf" ], 
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [],
