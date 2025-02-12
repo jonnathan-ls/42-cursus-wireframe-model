@@ -6,30 +6,30 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/11 21:32:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 02:29:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	print_map(t_fdf *fdf)
-{
-	unsigned int	i;
-	unsigned int	j;
+// void	print_map(t_fdf *fdf)
+// {
+// 	unsigned int	i;
+// 	unsigned int	j;
 
-	i = 0;
-	while (i < fdf->map.height)
-	{
-		j = 0;
-		while (j < fdf->map.width)
-		{
-			ft_printf("%3d ", fdf->map.coordinates[i][j].z);
-			j++;
-		}
-		ft_printf("\n");
-		i++;
-	}
-}
+// 	i = 0;
+// 	while (i < fdf->map.height)
+// 	{
+// 		j = 0;
+// 		while (j < fdf->map.width)
+// 		{
+// 			ft_printf("%3d ", fdf->map.coordinates[i][j].z);
+// 			j++;
+// 		}
+// 		ft_printf("\n");
+// 		i++;
+// 	}
+// }
 
 // void	draw_map(t_fdf *fdf)
 // {
@@ -99,7 +99,6 @@ int	main(int argc, char **argv)
 	if (!validates_map_values(&fdf))
 		exit_with_error(INVALID_MAP_VALUES, &fdf);
 	config_coordinates(&fdf);
-	print_map(&fdf);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr,
 		fdf.win_ptr, fdf.map.image->img_ptr, 0, 0);

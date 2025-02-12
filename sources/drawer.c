@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 01:36:09 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 02:38:12 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void draw_line(int x0, int y0, int x1, int y1, t_fdf *fdf)
 	int iz = fdf->map.coordinates[y0][x0].z;
 	int fz = fdf->map.coordinates[y1][x1].z;
 	int color = fdf->map.coordinates[y0][x0].color;
+	int color2	= fdf->map.coordinates[y1][x1].color;
 	int zoom = 25;
 	x0 *= zoom;
 	y0 *= zoom;
@@ -141,14 +142,14 @@ void draw_line(int x0, int y0, int x1, int y1, t_fdf *fdf)
 	y1 *= zoom;
 	isometric_projection(&x0, &y0, iz);
 	isometric_projection(&x1, &y1, fz);
-	int displacement = 300;
+	int displacement = 350;
 	x0 += displacement;
 	y0 += displacement;
 	x1 += displacement;
 	y1 += displacement;
 
 	fdf->segment.initial = (t_coordinate){x0, y0, iz, color};
-	fdf->segment.final = (t_coordinate){x1, y1, fz, color};
+	fdf->segment.final = (t_coordinate){x1, y1, fz, color2};
 	xiaolin_wu_algorithm(fdf);
 }
 

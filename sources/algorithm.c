@@ -6,12 +6,32 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 01:40:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 02:22:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+int interpolate_color( t_segment *p, float opacity)
+{
+	int factor;
+	int color1;
+	int color2;
+
+	color1 = p->initial.color;
+	color2 = p->final.color;
+	if (p->is_vertical)
+		factor = (float)(p->final.y - p->initial.y) / p->delta_y;
+	else
+		factor = (float)(p->final.x - p->initial.x) / p->delta_x;
+    int red = ((color1 >> 16) & 0xFF) + factor * (((color2 >> 16) & 0xFF) - ((color1 >> 16) & 0xFF));
+    int green = ((color1 >> 8) & 0xFF) + factor * (((color2 >> 8) & 0xFF) - ((color1 >> 8) & 0xFF));
+    int blue = (color1 & 0xFF) + factor * ((color2 & 0xFF) - (color1 & 0xFF));
+	red = (int)(red * opacity);
+	green = (int)(green * opacity);
+	blue = (int)(blue * opacity);
+    return (red << 16) | (green << 8) | blue;
+}
 static void swap_coordinates(t_fdf *fdf)
 {
 	int 			tmp;
@@ -39,9 +59,9 @@ static float	get_slope(t_segment *p)
 	return 1;
 }
 
-static void	draw_point(t_fdf *fdf, float x, float y, int color)
+static void	draw_point(t_fdf *fdf, float x, float y)
 {
-	t_segment *p;
+	t_segment	*p;
 
 	p = &fdf->segment;
 	if (p->is_vertical)
@@ -49,22 +69,22 @@ static void	draw_point(t_fdf *fdf, float x, float y, int color)
 		p->overlap = 1 - (y + 0.5 - (int)(y + 0.5));
 		p->initial_distance = x - (int)x;
 		custom_mlx_pixel_put(fdf, x, (y + 0.5),
-			color * p->overlap * (1 - p->distance));
+			interpolate_color(p, p->overlap * (1 - p->distance)));
 		custom_mlx_pixel_put(fdf, x + 1, (y + 0.5),
-			color * p->overlap * p->distance);
+			interpolate_color(p, p->overlap * p->distance));
 	}
 	else
 	{
 		p->overlap = 1 - (x + 0.5 - (int)(x + 0.5));
 		p->initial_distance = y - (int)y;
 		custom_mlx_pixel_put(fdf, (x + 0.5), y,
-			color * p->overlap * (1 - p->distance));
+			interpolate_color(p, p->overlap * (1 - p->distance)));
 		custom_mlx_pixel_put(fdf, (x + 0.5), y + 1,
-			color * p->overlap * p->distance);
+			interpolate_color(p, p->overlap * p->distance));
 	}
 }
 
-static void	draw_line_segment(t_fdf *fdf, int color)
+static void	draw_line_segment(t_fdf *fdf)
 {
 	float 		x;
 	float 		y;
@@ -83,8 +103,10 @@ static void	draw_line_segment(t_fdf *fdf, int color)
 			int x_int = floor(x);
 			int y_int = floor(y);
 			p->distance = x - x_int;
-			custom_mlx_pixel_put(fdf, x_int, y_int, color * (1 - p->distance));
-			custom_mlx_pixel_put(fdf, x_int + 1, y_int, color * p->distance);
+			custom_mlx_pixel_put(fdf, x_int, y_int,
+				interpolate_color(p, (1 - p->distance)));
+			custom_mlx_pixel_put(fdf, x_int + 1, y_int,
+				interpolate_color(p, p->distance));
 			index++;
 		}
 	}
@@ -98,8 +120,10 @@ static void	draw_line_segment(t_fdf *fdf, int color)
 			int x_int = floor(x);
 			int y_int = floor(y);
 			p->distance = y - y_int;
-			custom_mlx_pixel_put(fdf, x_int, y_int, color * (1 - p->distance));
-			custom_mlx_pixel_put(fdf, x_int, y_int + 1, color * p->distance);
+			custom_mlx_pixel_put(fdf, x_int, y_int,
+				interpolate_color(p, (1 - p->distance)));
+			custom_mlx_pixel_put(fdf, x_int, y_int + 1,
+				interpolate_color(p, p->distance));
 			index++;
 		}
 	}
@@ -117,9 +141,9 @@ void	xiaolin_wu_algorithm(t_fdf *fdf)
 	if (p->is_vertical && p->final.y < p->initial.y)
 		swap_coordinates(fdf);
 	p->slope = get_slope(p);
-	draw_point(fdf, p->initial.x, p->initial.y, p->initial.color);
-	draw_point(fdf, p->final.x, p->final.y, p->final.color);
-	draw_line_segment(fdf, p->initial.color);
+	draw_point(fdf, p->initial.x, p->initial.y);
+	draw_point(fdf, p->final.x, p->final.y);
+	draw_line_segment(fdf);
 }
 
 
