@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/10 22:04:59 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/11 21:40:55 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void	set_coordinate(int line_index, int column_index, t_fdf *fdf)
 	if (comma_ptr != NULL)
 	{
 		coordinate->color = ft_strtol(comma_ptr + 1);
-		value = comma_ptr + 1;
 	}
 	coordinate->z = ft_atoi(value);
 	coordinate->x = column_index;
