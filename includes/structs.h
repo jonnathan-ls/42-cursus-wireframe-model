@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/11 21:23:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 01:35:46 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,18 +72,20 @@ typedef struct s_factors
 	int	displacement;
 }	t_factors;
 
-typedef struct s_draw_params
+typedef struct s_segment
 {
-	float	initial_x;
-	float	initial_y;
-	float	final_x;
-	float	final_y;
-	int	initial_z;
-	int	final_z;
-	float	step_x;
-	float	step_y;
-	int color;
-}	t_draw_params;
+	t_coordinate	initial;
+	t_coordinate	final;
+	int				delta_x;
+	int				delta_y;
+	int				range;
+	bool			is_vertical;
+	float			slope;
+	float			overlap;
+	float			distance;
+	float			initial_distance;
+	float			final_distance;
+}	t_segment;
 
 typedef struct s_fdf
 {
@@ -95,6 +97,7 @@ typedef struct s_fdf
 	void		*win_ptr;
 	void		*img_ptr;
 	t_factors	factors;
+	t_segment		segment;
 }	t_fdf;
 
 #endif

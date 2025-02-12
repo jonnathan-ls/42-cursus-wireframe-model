@@ -11,6 +11,7 @@ SOURCES = $(SRCS_DIR)/fdf.c \
 	$(SRCS_DIR)/config_dimensions.c	\
 	$(SRCS_DIR)/mapper.c \
 	$(SRCS_DIR)/drawer.c \
+	$(SRCS_DIR)/algorithm.c 
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 

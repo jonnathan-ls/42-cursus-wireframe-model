@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/11 21:11:43 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 00:46:59 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	char	*dst;
 	t_image	*img;
 
+	printf("x: %d, y: %d, color: %d\n", x, y, color);
 	img = fdf->map.image;
 	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
 		return ;
