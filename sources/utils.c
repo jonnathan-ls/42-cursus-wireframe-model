@@ -25,7 +25,7 @@ void	free_split(char **split)
 	free(split);
 }
 
-void	free_mallocs(t_fdf *fdf)
+static void	free_map_values(t_fdf *fdf)
 {
 	unsigned int	line;
 	unsigned int	column;
@@ -41,19 +41,51 @@ void	free_mallocs(t_fdf *fdf)
 			column++;
 		}
 		free(fdf->map.values[line]);
+		line++;
+	}
+	free(fdf->map.values);
+}
+
+static void	free_coordinates(t_fdf *fdf)
+{
+	unsigned int	line;
+
+	line = 0;
+	while (line < fdf->map.height)
+	{
 		if (fdf->map.coordinates[line] != NULL)
 			free(fdf->map.coordinates[line]);
 		line++;
 	}
-	free(fdf->map.values);
 	free(fdf->map.coordinates);
+}
+
+void	free_mallocs(t_fdf *fdf)
+{
+	if (fdf->map.values)
+		free_map_values(fdf);
+	if (fdf->map.coordinates)
+		free_coordinates(fdf);
+	if (fdf->map.image)
+	{
+		if (fdf->map.image->pointer)
+			mlx_destroy_image(fdf->mlx_ptr, fdf->map.image->pointer);
+		free(fdf->map.image);
+	}
+	if (fdf->win_ptr)
+		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
+	if (fdf->mlx_ptr)
+	{
+		mlx_destroy_display(fdf->mlx_ptr);
+		free(fdf->mlx_ptr);
+	}
 }
 
 void	exit_with_error(char *str, t_fdf *fdf)
 {
 	free_mallocs(fdf);
 	if (errno == 0)
-		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(str, STDERR_FILENO);
 	else
 		perror(str);
 	exit(EXIT_FAILURE);

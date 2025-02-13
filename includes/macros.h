@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 21:55:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:07:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@
 # define INT_MAX_STR	"2147483647"
 # define INT_MIN_STR	"-2147483648"
 
-# define MLX_INIT_ERROR	"Mlx initialization error\n"
-# define WINDOW_CREATION_ERROR	"Window creation error\n"
-# define IMAGE_CREATION_ERROR	"Image creation error\n"
+# define MLX_INIT_ERROR	"Mlx initialization error"
+# define WINDOW_CREATION_ERROR	"Window creation error"
+# define IMAGE_CREATION_ERROR	"Image creation error"
 
-# define MAP_EMPTY_ERROR "Empty map\n"
-# define FILE_OPEN_ERROR	"Error opening file\n"
-# define INVALID_MAP_VALUES	"Invalid map values\n"
-# define FILE_NOT_FOUND_ERROR "File not found: %s\n"
-# define INVALID_FILE_PATH_ERROR "Invalid file path\n"
-# define INVALID_MAP_DIMENSIONS "Invalid map dimensions\n"
-# define INVALID_ARGS_ERROR "Invalid number of arguments\n"
+# define MAP_EMPTY_ERROR "Empty map"
+# define FILE_OPEN_ERROR	"Error opening file"
+# define INVALID_MAP_VALUES	"Invalid map values"
+# define FILE_NOT_FOUND_ERROR "File not found: %s"
+# define INVALID_FILE_PATH_ERROR "Invalid file path"
+# define INVALID_MAP_DIMENSIONS "Invalid map dimensions"
+# define INVALID_ARGS_ERROR "Invalid number of arguments"
 # define MAP_DATA_ERROR "Error while configuring map values"
-# define DATA_FILE_ERROR "Error reading data from the file\n"
+# define DATA_FILE_ERROR "Error reading data from the file"
 
 
 

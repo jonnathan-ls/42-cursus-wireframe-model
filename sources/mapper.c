@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 21:40:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:02:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,11 @@ bool	config_map_values(t_fdf *fdf)
 			break ;
 		fdf->map.values[index] = ft_split(line_str, SPACE_CHAR);
 		if (fdf->map.values[index] == NULL)
-			return (false);
+			return (close(fd), free(line_str), false);
 		free(line_str);
 		index++;
 	}
 	fdf->map.values[index] = NULL;
+	close(fd);
 	return (true);
 }
