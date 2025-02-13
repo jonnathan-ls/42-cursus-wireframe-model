@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 21:55:18 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:37:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ static void	initialize_mlx_values(t_fdf *fdf)
 
 static void	initialize_map(t_fdf *fdf)
 {
-	config_map_dimensions(fdf);
 	if (!config_map_values(fdf))
 		exit_with_error(MAP_DATA_ERROR, fdf);
 	if (fdf->map.height == 0 || fdf->map.width == 0)

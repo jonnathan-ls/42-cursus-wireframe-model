@@ -12,85 +12,6 @@
 
 #include "fdf.h"
 
-void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i])
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-
-static void	free_map_values(t_fdf *fdf)
-{
-	unsigned int	line;
-	unsigned int	column;
-
-	line = 0;
-	while (line < fdf->map.height)
-	{
-		column = 0;
-		while (column < fdf->map.width)
-		{
-			if (fdf->map.values[line][column] != NULL)
-				free(fdf->map.values[line][column]);
-			column++;
-		}
-		free(fdf->map.values[line]);
-		line++;
-	}
-	free(fdf->map.values);
-}
-
-static void	free_coordinates(t_fdf *fdf)
-{
-	unsigned int	line;
-
-	line = 0;
-	while (line < fdf->map.height)
-	{
-		if (fdf->map.coordinates[line] != NULL)
-			free(fdf->map.coordinates[line]);
-		line++;
-	}
-	free(fdf->map.coordinates);
-}
-
-void	free_mallocs(t_fdf *fdf)
-{
-	if (fdf->map.values)
-		free_map_values(fdf);
-	if (fdf->map.coordinates)
-		free_coordinates(fdf);
-	if (fdf->map.image)
-	{
-		if (fdf->map.image->pointer)
-			mlx_destroy_image(fdf->mlx_ptr, fdf->map.image->pointer);
-		free(fdf->map.image);
-	}
-	if (fdf->win_ptr)
-		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
-	if (fdf->mlx_ptr)
-	{
-		mlx_destroy_display(fdf->mlx_ptr);
-		free(fdf->mlx_ptr);
-	}
-}
-
-void	exit_with_error(char *str, t_fdf *fdf)
-{
-	free_mallocs(fdf);
-	if (errno == 0)
-		ft_putendl_fd(str, STDERR_FILENO);
-	else
-		perror(str);
-	exit(EXIT_FAILURE);
-}
-
 void	remove_breakline_char(char *line)
 {
 	int	i;
@@ -111,10 +32,61 @@ void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	char	*dst;
 	t_image	*img;
 
-	// printf("x: %d, y: %d, color: %d\n", x, y, color);
 	img = fdf->map.image;
 	if (x < 0 || x >= WINDOW_WIDTH || y < 0 || y >= WINDOW_HEIGHT)
 		return ;
 	dst = img->addr + (y * img->line_length + x * (img->bits_per_pixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+int	interpolate_color( t_fdf *fdf, float opacity)
+{
+	t_segment	*p;
+	int			red;
+	int			green;
+	int			blue;
+	int			factor;
+
+	p = &fdf->segment;
+	if (p->is_vertical)
+		factor = (float)(p->final.y - p->initial.y) / p->delta_y;
+	else
+		factor = (float)(p->final.x - p->initial.x) / p->delta_x;
+	red = ((p->initial.color >> 16) & 0xFF) + factor
+		* (((p->final.color >> 16) & 0xFF) - ((p->initial.color >> 16) & 0xFF));
+	green = ((p->initial.color >> 8) & 0xFF) + factor
+		* (((p->final.color >> 8) & 0xFF) - ((p->initial.color >> 8) & 0xFF));
+	blue = (p->initial.color & 0xFF) + factor
+		* ((p->final.color & 0xFF) - (p->initial.color & 0xFF));
+	red = (int)(red * opacity);
+	green = (int)(green * opacity);
+	blue = (int)(blue * opacity);
+	return ((red << 16) | (green << 8) | blue);
+}
+
+void	swap_coordinates(t_fdf *fdf)
+{
+	t_coordinate	*initial;
+	t_coordinate	*final;
+	int				tmp;
+
+	initial = &fdf->segment.initial;
+	final = &fdf->segment.final;
+	tmp = initial->x;
+	initial->x = final->x;
+	final->x = tmp;
+	tmp = initial->y;
+	initial->y = final->y;
+	final->y = tmp;
+}
+
+float	get_slope(t_segment *p)
+{
+	p->delta_x = p->final.x - p->initial.x;
+	p->delta_y = p->final.y - p->initial.y;
+	if (!p->is_vertical && p->delta_x != 0)
+		return ((float)p->delta_y / (float)p->delta_x);
+	if (p->is_vertical && p->delta_y != 0)
+		return ((float)p->delta_x / (float)p->delta_y);
+	return (1);
 }

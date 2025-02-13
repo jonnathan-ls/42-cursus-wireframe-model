@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 21:29:57 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:16:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,28 @@ typedef struct s_factors
 
 typedef struct s_segment
 {
-	t_coordinate	initial;
+	int				range;
+	float			slope;
 	t_coordinate	final;
+	t_coordinate	initial;
+	float			overlap;
 	int				delta_x;
 	int				delta_y;
-	int				range;
-	bool			is_vertical;
-	float			slope;
-	float			overlap;
 	float			distance;
-	float			initial_distance;
+	bool			is_vertical;
 	float			final_distance;
+	float			initial_distance;
 }	t_segment;
 
 typedef struct s_fdf
 {
 	t_map		map;
+	t_factors	factors;
+	t_segment	segment;
+	void		*win_ptr;
+	void		*mlx_ptr;
 	char		*file_path;
 	bool		error_flag;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_factors	factors;
-	t_segment		segment;
 }	t_fdf;
 
 #endif

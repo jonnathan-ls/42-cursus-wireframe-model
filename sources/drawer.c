@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 21:14:37 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:36:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,40 +63,3 @@ void	draw_map(t_fdf *fdf)
 		y++;
 	}
 }
-
-// void	draw_map(t_fdf *fdf)
-// {
-// 	unsigned int	x;
-// 	unsigned int	y;
-
-// 	x = 0;
-// 	y = 0;
-// 	while (y < fdf->map.height)
-// 	{
-// 		x = 0;
-// 		while (x < fdf->map.width)
-// 		{
-// 			fdf->segment.initial.x = x;
-// 			fdf->segment.initial.y = y;
-// 			fdf->segment.initial.z = fdf->map.coordinates[y][x].z;
-// 			fdf->segment.initial.color = fdf->map.coordinates[y][x].color;
-// 			fdf->segment.final.x = x;
-// 			fdf->segment.final.y = y;
-// 			fdf->segment.final.z = fdf->map.coordinates[y][x].z;
-// 			fdf->segment.final.color = fdf->map.coordinates[y][x].color;
-// 			if (x < fdf->map.width - 1)
-// 			{
-// 				fdf->segment.final.x = x + 1;
-// 				draw_line(fdf);
-// 			}
-// 			if (y < fdf->map.height - 1)
-// 			{
-// 				fdf->segment.final.x = x;
-// 				fdf->segment.final.y = y + 1;
-// 				draw_line(fdf);
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// }
