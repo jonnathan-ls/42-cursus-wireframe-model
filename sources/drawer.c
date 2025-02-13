@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 23:49:00 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 00:30:41 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,19 @@ static void	apply_displacement(t_line *line, t_fdf *fdf)
 	line->y1 += fdf->factors.y_displacement;
 }
 
+static void	apply_rotation(int *x, int *y, t_fdf *fdf)
+{
+	int		x_new;
+	int		y_new;
+	double	radians;
+
+	radians = fdf->factors.rotation_angle * M_PI / 180.0;
+	x_new = *x * cos(radians) - *y * sin(radians);
+	y_new = *x * sin(radians) + *y * cos(radians);
+	*x = x_new;
+	*y = y_new;
+}
+
 void	draw_line(t_line *line, t_fdf *fdf)
 {
 	int	z0;
@@ -46,6 +59,8 @@ void	draw_line(t_line *line, t_fdf *fdf)
 	color0 = fdf->map.coordinates[line->y0][line->x0].color;
 	color1 = fdf->map.coordinates[line->y1][line->x1].color;
 	apply_zoom(line, fdf);
+	apply_rotation(&line->x0, &line->y0, fdf);
+	apply_rotation(&line->x1, &line->y1, fdf);
 	apply_isometric_projection(&line->x0, &line->y0, z0);
 	apply_isometric_projection(&line->x1, &line->y1, z1);
 	apply_displacement(line, fdf);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 23:59:06 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 00:17:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 static void	init_factors(t_fdf *fdf)
 {
-	fdf->factors.x_zoom = 25;
-	fdf->factors.y_zoom = 20;
-	fdf->factors.x_displacement = (WINDOW_WIDTH / 2)
-		- (fdf->map.width * fdf->factors.x_zoom);
-	fdf->factors.y_displacement = (WINDOW_HEIGHT / 2)
-		- (fdf->map.height * fdf->factors.y_zoom);
+	fdf->factors.x_zoom = 0;
+	fdf->factors.y_zoom = 0;
+	fdf->factors.x_displacement = 0;
+	fdf->factors.y_displacement = 0;
+	fdf->factors.rotation_angle = 0;
 }
 
 static void	init_map_values(t_fdf *fdf)

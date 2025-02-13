@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 23:59:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 00:55:52 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,17 @@ static void	initialize_map(t_fdf *fdf)
 	config_coordinates(fdf);
 }
 
+static void	config_factors(t_fdf	*fdf)
+{
+	fdf->factors.x_zoom = (WINDOW_WIDTH * 0.8) / fdf->map.width;
+	fdf->factors.y_zoom = (WINDOW_HEIGHT * 0.8) / fdf->map.height;
+	fdf->factors.x_displacement = (WINDOW_WIDTH / 2)
+		- (fdf->map.width * fdf->factors.x_zoom / 10);
+	fdf->factors.y_displacement = (WINDOW_HEIGHT / 2)
+		- (fdf->map.height * fdf->factors.y_zoom / 2.5);
+	fdf->factors.rotation_angle = 0;
+}
+
 int	main(int argc, char **argv)
 {
 	t_fdf	fdf;
@@ -55,6 +66,7 @@ int	main(int argc, char **argv)
 	fdf.file_path = argv[1];
 	initialize_mlx_values(&fdf);
 	initialize_map(&fdf);
+	config_factors(&fdf);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr,
 		fdf.win_ptr, fdf.map.image->pointer, 0, 0);
@@ -68,3 +80,6 @@ int	main(int argc, char **argv)
 // Precisa corrigir exit_with_error aqui da segment fault
 // PRECISA CORRIGIR GET_NEXT_LINE 
 // quando nao é lido até o final, para liberar memoria
+
+// TODO: renderizar janela de acordo com o tamanho do mapa
+// TODO: Corrigir problema de altura (Z) esta compactada
