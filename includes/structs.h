@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 22:16:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:47:32 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,23 @@ typedef struct s_num_str
 
 typedef struct s_factors
 {
-	int	zoom;
-	int	displacement;
+	int	x_zoom;
+	int	y_zoom;
+	int	x_displacement;
+	int	y_displacement;
 }	t_factors;
+
+typedef struct s_line
+{
+	int	x0;
+	int	y0;
+	int	x1;
+	int	y1;
+}	t_line;
 
 typedef struct s_segment
 {
+	t_line			line;
 	int				range;
 	float			slope;
 	t_coordinate	final;

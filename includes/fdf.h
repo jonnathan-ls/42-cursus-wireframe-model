@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 22:40:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 22:56:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	remove_breakline_char(char *line);
 int		on_key_press(int keycode, t_fdf	*fdf);
 void	exit_with_error(char *str, t_fdf *fdf);
 int		interpolate_color( t_fdf *fdf, float opacity);
-void	draw_line(int x0, int y0, int x1, int y1, t_fdf *fdf);
 void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
 
 #endif

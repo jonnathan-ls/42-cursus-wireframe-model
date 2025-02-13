@@ -44,18 +44,18 @@ $(PRINTF):
 $(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
-$(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX)
+$(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) 
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $@
 
-$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c $(INCLUDES_DIR)/fdf.h
+$(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c 
 	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
 	rm -f $(OBJECTS)
+	$(MAKE) -C $(MLX_DIR) clean
 	$(MAKE) -C $(LIBFT_DIR) clean
 	$(MAKE) -C $(PRINTF_DIR) clean
-	$(MAKE) -C $(MLX_DIR) clean
 
 fclean: clean
 	rm -f $(NAME)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 22:37:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 23:59:50 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,3 @@ int	main(int argc, char **argv)
 // Precisa corrigir exit_with_error aqui da segment fault
 // PRECISA CORRIGIR GET_NEXT_LINE 
 // quando nao é lido até o final, para liberar memoria
-
