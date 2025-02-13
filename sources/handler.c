@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 01:44:26 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 03:27:15 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,30 +30,55 @@ void translate_model(t_fdf *fdf, int x_offset, int y_offset)
 	fdf->factors.y_displacement += y_offset;
 }
 
-void rotate_model(t_fdf *fdf, double angle)
+void rotate_model(t_fdf *fdf, double angle, bool is_x_axis)
 {
-	fdf->factors.rotation_angle += angle;
+	if (is_x_axis)
+		fdf->factors.x_rotation += angle;
+	else
+		fdf->factors.y_rotation += angle;
+}
+
+void increase_z_scale(t_fdf *fdf)
+{
+	fdf->factors.z_scale *= 1.5;
+}
+
+void decrease_z_scale(t_fdf *fdf)
+{
+	fdf->factors.z_scale /= 1.5;
 }
 
 static void	redraw_map(t_fdf *fdf)
 {
+	printf("Redrawing map\n");
+	if (fdf->map.image->pointer)
+		mlx_destroy_image(fdf->mlx_ptr, fdf->map.image->pointer);
+	fdf->map.image->pointer = mlx_new_image(fdf->mlx_ptr,
+			WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (fdf->map.image->pointer == NULL)
+		exit_with_error(IMAGE_CREATION_ERROR, fdf);
+	fdf->map.image->addr = mlx_get_data_addr(
+			fdf->map.image->pointer, &fdf->map.image->bits_per_pixel,
+			&fdf->map.image->line_length, &fdf->map.image->endian);
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	draw_map(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr,
 		fdf->map.image->pointer, 0, 0);
 }
 
-void change_color(t_fdf *fdf, int color)
+void invert_colors(t_fdf *fdf)
 {
-	int	factor_change;
-
-	factor_change = 10;
-	if (color == 1)
-		fdf->factors.red_color += factor_change;
-	else if (color == 2)
-		fdf->factors.green_color += factor_change;
-	else if (color == 3)
-		fdf->factors.blue_color += factor_change;
+		for (unsigned int y = 0; y < fdf->map.height; y++)
+		{
+			for (unsigned int x = 0; x < fdf->map.width; x++)
+			{
+				int color = fdf->map.coordinates[y][x].color;
+				int red = 255 - ((color >> 16) & 0xFF);
+				int green = 255 - ((color >> 8) & 0xFF);
+				int blue = 255 - (color & 0xFF);
+				fdf->map.coordinates[y][x].color = (red << 16) | (green << 8) | blue;
+			}
+		}
 }
 
 int	on_key_press(int keycode, t_fdf	*fdf)
@@ -75,15 +100,19 @@ int	on_key_press(int keycode, t_fdf	*fdf)
 		else if (keycode == KEY_TRANSLATE_RIGHT)
 			(translate_model(fdf, 10, 0), redraw_map(fdf));
 		else if (keycode == KEY_ROTATE_LEFT)
-			(rotate_model(fdf, -5), redraw_map(fdf));
+			(rotate_model(fdf, -5, true), redraw_map(fdf));
 		else if (keycode == KEY_ROTATE_RIGHT)
-			(rotate_model(fdf, 5), redraw_map(fdf));
-		else if (keycode == KEY_RED_COLOR)
-			(change_color(fdf, 1), redraw_map(fdf));
-		else if (keycode == KEY_GREEN_COLOR)
-			(change_color(fdf, 2), redraw_map(fdf));
-		else if (keycode == KEY_BLUE_COLOR)
-			(change_color(fdf, 3), redraw_map(fdf));
+			(rotate_model(fdf, 5, true), redraw_map(fdf));
+		else if (keycode == KEY_ROTATE_UP)
+			(rotate_model(fdf, -5, false), redraw_map(fdf));
+		else if (keycode == KEY_ROTATE_DOWN)
+			(rotate_model(fdf, 5, false), redraw_map(fdf));
+		else if (keycode == KEY_RANDOM_COLOR)
+			(invert_colors(fdf), redraw_map(fdf));
+		else	if (keycode == KEY_INCREASE_Z_SCALE)
+			(increase_z_scale(fdf), redraw_map(fdf));
+		else if (keycode == KEY_DECREASE_Z_SCALE)
+			(decrease_z_scale(fdf), redraw_map(fdf));
 	}
 	return (0);
 }

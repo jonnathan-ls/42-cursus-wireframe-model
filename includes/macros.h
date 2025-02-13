@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 01:35:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 03:25:25 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 # define EMPTY_STRING ""
 # define WHITE 0xFFFFFF
 # define ORANGE 0xFFA500
-# define WINDOW_WIDTH 1200
-# define WINDOW_HEIGHT 800
+# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 720
 # define WINDOW_TITLE "FdF"
 # define DEFAULT_COLOR	WHITE
 # define BREAK_LINE_CHAR '\n'
@@ -32,10 +32,12 @@
 # define KEY_TRANSLATE_LEFT	115
 # define KEY_TRANSLATE_RIGHT	119
 # define KEY_ROTATE_LEFT	97
+# define KEY_ROTATE_UP	65362
+# define KEY_ROTATE_DOWN	65364
 # define KEY_ROTATE_RIGHT	100
-# define KEY_RED_COLOR	114
-# define	KEY_GREEN_COLOR	103
-# define KEY_BLUE_COLOR	98
+# define KEY_RANDOM_COLOR	99
+# define KEY_INCREASE_Z_SCALE	122
+# define KEY_DECREASE_Z_SCALE	120
 
 # define INT_MAX_STR	"2147483647"
 # define INT_MIN_STR	"-2147483648"

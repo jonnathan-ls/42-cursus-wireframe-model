@@ -58,9 +58,9 @@ int	interpolate_color( t_fdf *fdf, float opacity)
 		* (((p->final.color >> 8) & 0xFF) - ((p->initial.color >> 8) & 0xFF));
 	blue = (p->initial.color & 0xFF) + factor
 		* ((p->final.color & 0xFF) - (p->initial.color & 0xFF));
-	red = (int)(red * opacity) + fdf->factors.red_color;
-	green = (int)(green * opacity) + fdf->factors.green_color;
-	blue = (int)(blue * opacity) + fdf->factors.blue_color;
+	red = (int)(red * opacity) * fdf->factors.change_color;
+	green = (int)(green * opacity) * fdf->factors.change_color;
+	blue = (int)(blue * opacity) * fdf->factors.change_color;
 	red = red > 255 ? 255 : (red < 0 ? 0 : red);
 	green = green > 255 ? 255 : (green < 0 ? 0 : green);
 	blue = blue > 255 ? 255 : (blue < 0 ? 0 : blue);

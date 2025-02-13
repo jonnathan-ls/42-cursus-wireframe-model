@@ -6,23 +6,34 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 01:23:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 03:35:56 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-// static void		apply_parallel_projection(int *x, int *y, int z)
-// {
-// 	*x = *x + z * cos(0.5);
-// 	*y = *y + z * sin(0.5);
-// }
-
-static void	apply_isometric_projection(int *x, int *y, int z)
+static void apply_conic_projection(int *x, int *y, int z, t_fdf	*fdf)
 {
-	*x = (*x - *y) * cos(0.8);
-	*y = (*x + *y) * sin(0.8) - z;
+	int previous_x;
+	int previous_y;
+	int previous_z;
+
+	previous_x = *x;
+	previous_y = *y;
+	previous_z = z * fdf->factors.z_scale;
+	*x = (previous_x * fdf->factors.focal_length)
+		/ (fdf->factors.focal_length + previous_z);
+	*y = (previous_y * fdf->factors.focal_length)
+		/ (fdf->factors.focal_length + previous_z);
 }
+
+// static void apply_isometric_projection(int *x, int *y, int z, float z_scale)
+// {
+// 		int previous_x = *x;
+// 		int previous_y = *y;
+// 		*x = (previous_x - previous_y) * cos(0.523599);
+// 		*y = (previous_x + previous_y) * sin(0.523599) - z * z_scale;
+// }
 
 static void	apply_zoom(t_line *line, t_fdf *fdf)
 {
@@ -44,11 +55,13 @@ static void	apply_rotation(int *x, int *y, t_fdf *fdf)
 {
 	int		x_new;
 	int		y_new;
-	double	radians;
+	double	x_rad;
+	double	y_rad;
 
-	radians = fdf->factors.rotation_angle * M_PI / 180.0;
-	x_new = *x * cos(radians) - *y * sin(radians);
-	y_new = *x * sin(radians) + *y * cos(radians);
+	x_rad = fdf->factors.x_rotation * M_PI / 180.0;
+	y_rad = fdf->factors.y_rotation * M_PI / 180.0;
+	x_new = *x * cos(x_rad) - *y * sin(x_rad);
+	y_new = *x * sin(y_rad) + *y * cos(y_rad);
 	*x = x_new;
 	*y = y_new;
 }
@@ -67,8 +80,10 @@ void	draw_line(t_line *line, t_fdf *fdf)
 	apply_zoom(line, fdf);
 	apply_rotation(&line->x0, &line->y0, fdf);
 	apply_rotation(&line->x1, &line->y1, fdf);
-	apply_isometric_projection(&line->x0, &line->y0, z0);
-	apply_isometric_projection(&line->x1, &line->y1, z1);
+	// apply_isometric_projection(&line->x0, &line->y0, z0, fdf->factors.z_scale);
+	// apply_isometric_projection(&line->x1, &line->y1, z1, fdf->factors.z_scale);
+	apply_conic_projection(&line->x0, &line->y0, z0, fdf);
+	apply_conic_projection(&line->x1, &line->y1, z1, fdf);
 	// apply_parallel_projection(&line->x0, &line->y0, z0);
 	// apply_parallel_projection(&line->x1, &line->y1, z1);
 	apply_displacement(line, fdf);
