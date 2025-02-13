@@ -6,11 +6,17 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 00:30:41 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 01:23:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+// static void		apply_parallel_projection(int *x, int *y, int z)
+// {
+// 	*x = *x + z * cos(0.5);
+// 	*y = *y + z * sin(0.5);
+// }
 
 static void	apply_isometric_projection(int *x, int *y, int z)
 {
@@ -63,6 +69,8 @@ void	draw_line(t_line *line, t_fdf *fdf)
 	apply_rotation(&line->x1, &line->y1, fdf);
 	apply_isometric_projection(&line->x0, &line->y0, z0);
 	apply_isometric_projection(&line->x1, &line->y1, z1);
+	// apply_parallel_projection(&line->x0, &line->y0, z0);
+	// apply_parallel_projection(&line->x1, &line->y1, z1);
 	apply_displacement(line, fdf);
 	fdf->segment.initial = (t_coordinate){line->x0, line->y0, z0, color0};
 	fdf->segment.final = (t_coordinate){line->x1, line->y1, z1, color1};

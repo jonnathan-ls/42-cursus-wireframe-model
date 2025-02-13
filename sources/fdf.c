@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 00:55:52 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 01:42:47 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,13 @@ static void	config_factors(t_fdf	*fdf)
 	fdf->factors.x_zoom = (WINDOW_WIDTH * 0.8) / fdf->map.width;
 	fdf->factors.y_zoom = (WINDOW_HEIGHT * 0.8) / fdf->map.height;
 	fdf->factors.x_displacement = (WINDOW_WIDTH / 2)
-		- (fdf->map.width * fdf->factors.x_zoom / 10);
-	fdf->factors.y_displacement = (WINDOW_HEIGHT / 2)
-		- (fdf->map.height * fdf->factors.y_zoom / 2.5);
-	fdf->factors.rotation_angle = 0;
+		- (fdf->map.width * fdf->factors.x_zoom / 2);
+	fdf->factors.y_displacement = (WINDOW_HEIGHT)
+		- (fdf->map.height * fdf->factors.y_zoom / 2);
+	fdf->factors.rotation_angle = -99;
+	fdf->factors.red_color = 0;
+	fdf->factors.green_color = 0;
+	fdf->factors.blue_color = 0;
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 00:27:35 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 01:34:10 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ typedef struct s_factors
 	int	x_displacement;
 	int	y_displacement;
 	int	rotation_angle;
+	bool vertical_mirror;
+	bool horizontal_mirror;
+	int	red_color;
+	int	green_color;
+	int	blue_color;
 }	t_factors;
 
 typedef struct s_line
