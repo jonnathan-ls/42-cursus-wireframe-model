@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 01:53:25 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:29:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_coordinate
 typedef struct s_image
 {
 	char	*addr;
-	void	*img_ptr;
+	void	*pointer;
 	int		width;
 	int		endian;
 	int		height;
@@ -58,14 +58,6 @@ typedef struct s_num_str
 	bool		is_negative;
 }	t_num_str;
 
-typedef struct s_window
-{
-	int		width;
-	int		height;
-	char	*title;
-	t_map	map;
-}	t_window;
-
 typedef struct s_factors
 {
 	int	zoom;
@@ -90,12 +82,10 @@ typedef struct s_segment
 typedef struct s_fdf
 {
 	t_map		map;
-	t_window	window;
 	char		*file_path;
 	bool		error_flag;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	void		*img_ptr;
 	t_factors	factors;
 	t_segment		segment;
 }	t_fdf;

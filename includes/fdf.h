@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 00:50:27 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:49:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@
 void	draw_map(t_fdf *fdf);
 void	free_split(char **split);
 void	free_mallocs(t_fdf *fdf);
+void	init_fdf_values(t_fdf *fdf);
 bool	config_map_values(t_fdf *fdf);
 void	config_coordinates(t_fdf *fdf);
+void	xiaolin_wu_algorithm(t_fdf *fdf);
 bool	validates_map_values(t_fdf *fdf);
 void	config_map_dimensions(t_fdf *fdf);
 void	remove_breakline_char(char *line);
+int		on_key_press(int keycode, t_fdf	*fdf);
 void	exit_with_error(char *str, t_fdf *fdf);
+void	draw_line(int x0, int y0, int x1, int y1, t_fdf *fdf);
 void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
-void draw_line(int x0, int y0, int x1, int y1, t_fdf *fdf);
-void	xiaolin_wu_algorithm(t_fdf *fdf);
+
 #endif

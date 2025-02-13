@@ -6,37 +6,11 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/11 21:40:55 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/12 21:40:58 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-bool	config_map_values(t_fdf *fdf)
-{
-	int				fd;
-	unsigned int	index;
-	char			*line_str;
-
-	index = 0;
-	line_str = NULL;
-	fd = open(fdf->file_path, O_RDONLY);
-	fdf->map.values = (char ***)malloc(sizeof(char **) * (fdf->map.height + 1));
-	while (true)
-	{
-		line_str = get_next_line(fd);
-		remove_breakline_char(line_str);
-		if (line_str == NULL)
-			break ;
-		fdf->map.values[index] = ft_split(line_str, SPACE_CHAR);
-		if (fdf->map.values[index] == NULL)
-			return (false);
-		free(line_str);
-		index++;
-	}
-	fdf->map.values[index] = NULL;
-	return (true);
-}
 
 static void	set_coordinate(int line_index, int column_index, t_fdf *fdf)
 {
@@ -77,4 +51,30 @@ void	config_coordinates(t_fdf *fdf)
 		}
 		line++;
 	}
+}
+
+bool	config_map_values(t_fdf *fdf)
+{
+	int				fd;
+	unsigned int	index;
+	char			*line_str;
+
+	index = 0;
+	line_str = NULL;
+	fd = open(fdf->file_path, O_RDONLY);
+	fdf->map.values = (char ***)malloc(sizeof(char **) * (fdf->map.height + 1));
+	while (true)
+	{
+		line_str = get_next_line(fd);
+		remove_breakline_char(line_str);
+		if (line_str == NULL)
+			break ;
+		fdf->map.values[index] = ft_split(line_str, SPACE_CHAR);
+		if (fdf->map.values[index] == NULL)
+			return (false);
+		free(line_str);
+		index++;
+	}
+	fdf->map.values[index] = NULL;
+	return (true);
 }
