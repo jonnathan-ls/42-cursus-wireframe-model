@@ -10,10 +10,13 @@ SOURCES = \
 	$(SRCS_DIR)/utils.c \
 	$(SRCS_DIR)/mapper.c \
 	$(SRCS_DIR)/drawer.c \
+	$(SRCS_DIR)/factors.c \
 	$(SRCS_DIR)/cleaner.c \
 	$(SRCS_DIR)/handler.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/algorithm.c \
+	$(SRCS_DIR)/modifiers1.c \
+	$(SRCS_DIR)/modifiers2.c \
 	$(SRCS_DIR)/initializer.c \
 	$(SRCS_DIR)/coordinates.c \
 

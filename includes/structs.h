@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/13 03:30:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 00:37:23 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,17 @@ typedef struct s_num_str
 
 typedef struct s_factors
 {
-	int	x_zoom;
-	int	y_zoom;
-	int	x_displacement;
-	int	y_displacement;
-	int	x_rotation;
-	int	y_rotation;
+	int		x_zoom;
+	int		y_zoom;
+	int		x_offset;
+	int		y_offset;
+	int		x_rotation;
+	int		y_rotation;
+	int		z_rotation;
 	float	z_scale;
-	int	change_color;
-	float focal_length;
+	int		change_color;
+	float	focal_length;
+	bool	isometric_projection;
 }	t_factors;
 
 typedef struct s_line

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 23:36:03 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/13 21:27:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	read_lines(int fd, t_fdf *fdf)
 
 static void	set_map_width(t_fdf *fdf)
 {
-	int		fd;
+	int	fd;
 
 	fdf->error_flag = false;
 	fd = open(fdf->file_path, O_RDONLY);
@@ -73,8 +73,14 @@ static void	set_map_width(t_fdf *fdf)
 
 static void	config_map_dimensions(t_fdf *fdf)
 {
+	int	fd;
+
 	fdf->map.width = 0;
 	fdf->map.height = 0;
+	fd = open(fdf->file_path, O_RDONLY);
+	if (fd == -1)
+		exit_with_error(FILE_OPEN_ERROR, fdf);
+	close(fd);
 	set_map_width(fdf);
 	set_map_height(fdf);
 }
