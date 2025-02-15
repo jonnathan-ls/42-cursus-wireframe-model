@@ -5,7 +5,7 @@
       "name": "Debug FDF",
       "type": "cppdbg",
       "request": "launch",
-      "program": "${workspaceFolder}/fdf",
+      "program": "${workspaceFolder}/fdf_bonus",
       "args": [ "resources/other_maps/42.fdf" ], 
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",

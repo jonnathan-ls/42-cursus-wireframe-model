@@ -12,9 +12,9 @@
 
 #include "fdf.h"
 
-t_color_factor get_color_factor(float num)
+static t_color_factor	get_color_factor(float num)
 {
-	t_color_factor factor;
+	t_color_factor	factor;
 
 	factor.integer = (int)num;
 	if (num > 0.f)
@@ -22,7 +22,7 @@ t_color_factor get_color_factor(float num)
 	else
 		factor.fractional = num - (factor.integer + 1.f);
 	factor.complement = 1.f - factor.fractional;
-	return factor;
+	return (factor);
 }
 
 static int	interpolate_color(int color1, int color2, t_segment segment)
@@ -66,30 +66,30 @@ static int	ft_get_color(int x, float factor, t_segment segment)
 
 static void	draw_line_segment(t_segment segment, t_fdf *fdf)
 {
-	int				x_segment;
+	int				x;
 	float			y_segment;
 
-	x_segment = segment.initial.x;
+	x = segment.initial.x;
 	y_segment = (float)segment.initial.y;
-	while (x_segment <= segment.final.x)
+	while (x <= segment.final.x)
 	{
 		segment.color.factor = get_color_factor(y_segment);
 		if (segment.is_vertical)
 		{
-			custom_mlx_pixel_put(fdf, segment.color.factor.integer, x_segment,
-				ft_get_color(x_segment, segment.color.factor.complement, segment));
-			custom_mlx_pixel_put(fdf, segment.color.factor.integer + 1, x_segment,
-				ft_get_color(x_segment, segment.color.factor.fractional, segment));
+			custom_mlx_pixel_put(fdf, segment.color.factor.integer, x,
+				ft_get_color(x, segment.color.factor.complement, segment));
+			custom_mlx_pixel_put(fdf, segment.color.factor.integer + 1, x,
+				ft_get_color(x, segment.color.factor.fractional, segment));
 		}
 		else
 		{
-			custom_mlx_pixel_put(fdf, x_segment, segment.color.factor.integer,
-				ft_get_color(x_segment, segment.color.factor.complement, segment));
-			custom_mlx_pixel_put(fdf, x_segment, segment.color.factor.integer + 1,
-				ft_get_color(x_segment, segment.color.factor.fractional, segment));
+			custom_mlx_pixel_put(fdf, x, segment.color.factor.integer,
+				ft_get_color(x, segment.color.factor.complement, segment));
+			custom_mlx_pixel_put(fdf, x, segment.color.factor.integer + 1,
+				ft_get_color(x, segment.color.factor.fractional, segment));
 		}
 		y_segment += segment.slope;
-		x_segment++;
+		x++;
 	}
 }
 

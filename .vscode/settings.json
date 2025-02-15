@@ -28,6 +28,7 @@
 		"structs.h": "c",
 		"ft_printf.h": "c",
 		"macros.h": "c",
-		"numbers": "c"
+		"numbers": "c",
+		"fdf_bonus.h": "c"
 	}
 }

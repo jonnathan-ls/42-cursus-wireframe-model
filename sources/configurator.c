@@ -6,13 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 01:33:15 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 06:26:31 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	get_min(int a, int b)
+int	get_min(int a, int b)
 {
 	if (a < b)
 		return (a);
@@ -56,7 +56,7 @@ void	config_factors(t_fdf	*fdf)
 	fdf->factors.x_angle = -0.615472907;
 	fdf->factors.y_angle = -0.523599;
 	fdf->factors.z_angle = 0.615472907;
-	fdf->factors.z_height = 1;
+	fdf->factors.z_scale = 1;
 	fdf->factors.x_offset = 0;
 	fdf->factors.y_offset = 0;
 	fdf->factors.iso = 1;

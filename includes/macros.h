@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 22:43:23 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 06:37:14 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,9 @@
 # define WINDOW_TITLE "FdF"
 # define DEFAULT_COLOR	WHITE
 # define BREAK_LINE_CHAR '\n'
-# define MAP_MIDDLE 2
-# define DEFAULT_ROTATION_ANGLE -90
 
 # define ESC	65307
 # define INT_SIZE_DIGITS	10
-# define ZOOM_IN	105
-# define ZOOM_OUT	111
-# define OFFSET_LEFT	65361
-# define OFFSET_RIGHT	65363
-# define OFFSET_UP	65362
-# define OFFSET_DOWN	65364
-# define ROTATE_LEFT	97
-# define ROTATE_RIGHT	100
-# define ROTATE_UP	119
-# define ROTATE_DOWN	115
-# define TRANSLATE_X	44
-# define TRANSLATE_Y	46
-# define INCREASE_Z_SCALE	122
-# define DECREASE_Z_SCALE	120
 
 # define INT_MAX_STR	"2147483647"
 # define INT_MIN_STR	"-2147483648"

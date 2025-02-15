@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 04:28:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 06:37:07 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,29 +28,13 @@
 
 // Modifier functions
 void	invert_colors(t_fdf *fdf);
-void	apply_conic_projection(int *x, int *y, int z, t_fdf	*fdf);
-void	apply_isometric_projection(int *x, int *y, int z);
-
-// Factor functions
-void	zoom(char type, t_fdf *fdf);
-void	scale(char type, t_fdf *fdf);
-void	rotate(char axis, t_fdf *fdf);
-// void	translate(char type, t_fdf *fdf);
-void	offset(char direction, t_fdf *fdf);
-
-// Changer functions
-void	redraw_map(t_fdf *fdf);
-void	offset_handler(int keycode, t_fdf *fdf);
-void	rotate_handler(int keycode, t_fdf *fdf);
-
-// Configurator functions
+void	apply_isometric_projection(t_coordinate *coord, t_fdf *fdf);
 void	config_map(t_fdf *fdf);
 void	config_factors(t_fdf	*fdf);
 void	config_windown(t_fdf *fdf);
-
 void	draw_map(t_fdf *fdf);
 void	free_split(char **split);
-
+int		get_min(int a, int b);
 float	get_slope(t_segment *segment);
 void	free_mallocs(t_fdf *fdf);
 void	swap(int *a, int *b);
@@ -60,7 +44,7 @@ void	config_coordinates(t_fdf *fdf);
 void	xiaolin_wu_algorithm(t_fdf *fdf);
 bool	validates_map_values(t_fdf *fdf);
 void	remove_breakline_char(char *line);
-int		on_mouse_click(int button, t_fdf *fdf);
 void	exit_with_error(char *str, t_fdf *fdf);
 void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color);
+
 #endif

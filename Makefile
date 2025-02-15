@@ -14,7 +14,7 @@ SOURCES = \
 	$(SRCS_DIR)/cleaner.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/algorithm.c \
-	$(SRCS_DIR)/modifiers.c \
+	$(SRCS_DIR)/projection.c \
 	$(SRCS_DIR)/coordinates.c \
 	$(SRCS_DIR)/configurator.c \
 
@@ -25,13 +25,12 @@ BONUS_SOURCES = \
 	$(SRCS_DIR)/cleaner.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/algorithm.c \
-	$(SRCS_DIR)/modifiers.c \
-	$(SRCS_DIR)/fdf_bonus.c \
+	$(SRCS_DIR)/projection.c \
 	$(SRCS_DIR)/coordinates.c \
 	$(SRCS_DIR)/configurator.c \
+	$(SRCS_DIR)/fdf_bonus.c \
+	$(SRCS_DIR)/utils_bonus.c \
 	$(SRCS_DIR)/handler_bonus.c \
-	$(SRCS_DIR)/factors_bonus.c \
-	$(SRCS_DIR)/modifiers_bonus.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 BONUS_OBJECTS = $(BONUS_SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
