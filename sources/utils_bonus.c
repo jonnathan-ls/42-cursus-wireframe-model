@@ -6,11 +6,32 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 16:03:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:32:13 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
+
+void	reset_handler(t_fdf *fdf)
+{
+	fdf->factors.x_offset = 0;
+	fdf->factors.y_offset = 0;
+	if (fdf->factors.iso)
+	{
+		fdf->factors.x_angle = -0.615472907;
+		fdf->factors.y_angle = -0.523599;
+		fdf->factors.z_angle = 0.615472907;
+	}
+	else
+	{
+		fdf->factors.x_angle = -0.523599;
+		fdf->factors.y_angle = -0.261799;
+		fdf->factors.z_angle = 0;
+	}
+	fdf->factors.z_scale = 1;
+	fdf->factors.zoom = get_min(WINDOW_WIDTH / fdf->map.width / 2,
+			WINDOW_HEIGHT / fdf->map.height / 2);
+}
 
 int	close_handler(t_fdf *fdf)
 {
@@ -50,6 +71,6 @@ void	invert_colors(t_fdf *fdf)
 
 void	hook_handlers(t_fdf *fdf)
 {
-	mlx_key_hook(fdf->win_ptr, on_key_press, fdf);
+	mlx_key_hook(fdf->win_ptr, key_press_handler, fdf);
 	mlx_hook(fdf->win_ptr, 17, 0, close_handler, fdf);
 }

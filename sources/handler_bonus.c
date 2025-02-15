@@ -6,31 +6,21 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 16:01:56 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:35:26 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_bonus.h"
 
-static void	reset_handler(t_fdf *fdf)
+static int	zoom_handler(int keycode, t_fdf *fdf)
 {
-	fdf->factors.x_offset = 0;
-	fdf->factors.y_offset = 0;
-	if (fdf->factors.iso)
-	{
-		fdf->factors.x_angle = -0.615472907;
-		fdf->factors.y_angle = -0.523599;
-		fdf->factors.z_angle = 0.615472907;
-	}
-	else
-	{
-		fdf->factors.x_angle = -0.523599;
-		fdf->factors.y_angle = -0.261799;
-		fdf->factors.z_angle = 0;
-	}
-	fdf->factors.z_scale = 1;
-	fdf->factors.zoom = get_min(WINDOW_WIDTH / fdf->map.width / 2,
-			WINDOW_HEIGHT / fdf->map.height / 2);
+	if (keycode == ZOOM_IN)
+		fdf->factors.zoom += 3;
+	else if (keycode == ZOOM_OUT)
+		fdf->factors.zoom -= 3;
+	if (fdf->factors.zoom < 1)
+		fdf->factors.zoom = 1;
+	return (0);
 }
 
 static void	projection_handler(t_fdf *fdf)
@@ -74,7 +64,7 @@ static void	offset_handler(int keycode, t_fdf *fdf)
 		fdf->factors.y_offset -= 10;
 }
 
-int	on_key_press(int keycode, t_fdf *fdf)
+int	key_press_handler(int keycode, t_fdf *fdf)
 {
 	if (fdf == NULL)
 		return (0);
@@ -89,6 +79,8 @@ int	on_key_press(int keycode, t_fdf *fdf)
 		(offset_handler(keycode, fdf), redraw_map(fdf));
 	else if (keycode == MINUS || keycode == PLUS)
 		(z_scale_handler(keycode, fdf), redraw_map(fdf));
+	else if (keycode == ZOOM_IN || keycode == ZOOM_OUT)
+		(zoom_handler(keycode, fdf), redraw_map(fdf));
 	else if (keycode == SPACE)
 		(projection_handler(fdf), redraw_map(fdf));
 	return (0);

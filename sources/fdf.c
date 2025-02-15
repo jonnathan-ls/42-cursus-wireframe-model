@@ -6,13 +6,13 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 16:48:39 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 17:26:57 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static int	on_key_press(int keycode, t_fdf	*fdf)
+static int	key_press_handler(int keycode, t_fdf	*fdf)
 {
 	if (fdf != NULL)
 	{
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	mlx_put_image_to_window(fdf.mlx_ptr,
 		fdf.win_ptr, fdf.image.pointer, 0, 0);
 	mlx_hook(fdf.win_ptr, 17, 0, on_close_window, &fdf);
-	mlx_key_hook(fdf.win_ptr, on_key_press, &fdf);
+	mlx_key_hook(fdf.win_ptr, key_press_handler, &fdf);
 	mlx_loop(fdf.mlx_ptr);
 	free_mallocs(&fdf);
 	return (EXIT_SUCCESS);
