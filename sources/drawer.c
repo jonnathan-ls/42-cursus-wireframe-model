@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:26:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:31:28 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	draw_map(t_fdf *fdf)
 
 	x = 0;
 	y = 0;
+	ft_bzero(fdf->image.addr, WINDOW_WIDTH * WINDOW_HEIGHT
+		* (fdf->image.bits_per_pixel / 8));
 	while (y < fdf->map.height)
 	{
 		x = 0;

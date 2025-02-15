@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:35:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:01:56 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	projection_handler(t_fdf *fdf)
 
 static void	z_scale_handler(int keycode, t_fdf *fdf)
 {
-	printf("Z scale: %f\n", fdf->factors.z_scale);
 	if (keycode == MINUS)
 		fdf->factors.z_scale += 0.5;
 	else if (keycode == PLUS)
@@ -77,23 +76,21 @@ static void	offset_handler(int keycode, t_fdf *fdf)
 
 int	on_key_press(int keycode, t_fdf *fdf)
 {
-	printf("Keycode: %d\n", keycode);
 	if (fdf == NULL)
 		return (0);
 	if (keycode == ESC)
 		close_handler(fdf);
 	else if (keycode == RESET)
-		reset_handler(fdf);
+		(reset_handler(fdf), redraw_map(fdf));
 	else if (keycode == INVERT_COLOR)
-		invert_colors(fdf);
+		(invert_colors(fdf), redraw_map(fdf));
 	else if (keycode == ARROW_DOWN || keycode == ARROW_LEFT
 		|| keycode == ARROW_UP || keycode == ARROW_RIGHT)
-		offset_handler(keycode, fdf);
+		(offset_handler(keycode, fdf), redraw_map(fdf));
 	else if (keycode == MINUS || keycode == PLUS)
-		z_scale_handler(keycode, fdf);
+		(z_scale_handler(keycode, fdf), redraw_map(fdf));
 	else if (keycode == SPACE)
-		projection_handler(fdf);
-	redraw_map(fdf);
+		(projection_handler(fdf), redraw_map(fdf));
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:37:14 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:41:38 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define EMPTY_STRING ""
 # define WHITE 0xFFFFFF
 # define ORANGE 0xFFA500
-# define WINDOW_WIDTH 1080
-# define WINDOW_HEIGHT 960
+# define WINDOW_WIDTH 1920
+# define WINDOW_HEIGHT 1080
 # define WINDOW_TITLE "FdF"
 # define DEFAULT_COLOR	WHITE
 # define BREAK_LINE_CHAR '\n'

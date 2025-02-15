@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 00:40:19 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:18:00 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,8 @@ void	free_mallocs(t_fdf *fdf)
 		free_map_values(fdf);
 	if (fdf->map.coordinates)
 		free_coordinates(fdf);
-	if (fdf->map.image)
-	{
-		if (fdf->map.image->pointer)
-			mlx_destroy_image(fdf->mlx_ptr, fdf->map.image->pointer);
-		free(fdf->map.image);
-	}
+	if (fdf->image.pointer)
+		mlx_destroy_image(fdf->mlx_ptr, fdf->image.pointer);
 	if (fdf->win_ptr)
 		mlx_destroy_window(fdf->mlx_ptr, fdf->win_ptr);
 	if (fdf->mlx_ptr)

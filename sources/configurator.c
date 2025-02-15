@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:26:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:18:11 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,13 @@ void	config_windown(t_fdf *fdf)
 			WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
 	if (fdf->win_ptr == NULL)
 		exit_with_error(WINDOW_CREATION_ERROR, fdf);
-	fdf->map.image = (t_image *)malloc(sizeof(t_image));
-	fdf->map.image->pointer = mlx_new_image(
+	fdf->image.pointer = mlx_new_image(
 			fdf->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (fdf->map.image->pointer == NULL)
+	if (fdf->image.pointer == NULL)
 		exit_with_error(IMAGE_CREATION_ERROR, fdf);
-	fdf->map.image->addr = mlx_get_data_addr(
-			fdf->map.image->pointer, &fdf->map.image->bits_per_pixel,
-			&fdf->map.image->line_length, &fdf->map.image->endian);
+	fdf->image.addr = mlx_get_data_addr(
+			fdf->image.pointer, &fdf->image.bits_per_pixel,
+			&fdf->image.line_length, &fdf->image.endian);
 }
 
 void	config_map(t_fdf *fdf)

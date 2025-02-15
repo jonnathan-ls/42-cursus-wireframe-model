@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:37:07 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 14:12:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "macros.h"
 # include "structs.h"
 
-// Modifier functions
+void	init_fdf_values(t_fdf *fdf);
 void	invert_colors(t_fdf *fdf);
 void	apply_isometric_projection(t_coordinate *coord, t_fdf *fdf);
 void	config_map(t_fdf *fdf);

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:26:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:12:04 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ typedef struct s_map
 {
 	int				width;
 	int				height;
-	t_image			*image;
 	char			***values;
 	t_coordinate	**coordinates;
 }	t_map;
@@ -93,6 +92,7 @@ typedef struct s_segment
 typedef struct s_fdf
 {
 	t_map		map;
+	t_image		image;
 	t_factors	factors;
 	t_segment	segment;
 	void		*win_ptr;

@@ -33,7 +33,8 @@ void	custom_mlx_pixel_put(t_fdf *fdf, int x, int y, int color)
 	char	*dst;
 	t_image	*img;
 
-	img = fdf->map.image;
+	dst = NULL;
+	img = &fdf->image;
 	if (x >= 0 && x < WINDOW_WIDTH && y >= 0 && y < WINDOW_HEIGHT)
 	{
 		index = (x * img->bits_per_pixel / 8) + (y * img->line_length);

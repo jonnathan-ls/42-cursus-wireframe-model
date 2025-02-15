@@ -16,6 +16,7 @@ SOURCES = \
 	$(SRCS_DIR)/algorithm.c \
 	$(SRCS_DIR)/projection.c \
 	$(SRCS_DIR)/coordinates.c \
+	$(SRCS_DIR)/initializer.c	\
 	$(SRCS_DIR)/configurator.c \
 
 BONUS_SOURCES = \
@@ -27,10 +28,12 @@ BONUS_SOURCES = \
 	$(SRCS_DIR)/algorithm.c \
 	$(SRCS_DIR)/projection.c \
 	$(SRCS_DIR)/coordinates.c \
+	$(SRCS_DIR)/initializer.c	\
 	$(SRCS_DIR)/configurator.c \
 	$(SRCS_DIR)/fdf_bonus.c \
 	$(SRCS_DIR)/utils_bonus.c \
 	$(SRCS_DIR)/handler_bonus.c \
+	$(SRCS_DIR)/instructions_bonus.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 BONUS_OBJECTS = $(BONUS_SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)

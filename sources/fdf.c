@@ -6,48 +6,11 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 06:26:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 15:18:40 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	init_fdf_values(t_fdf *fdf)
-{
-	fdf->error_flag = false;
-	fdf->file_path = NULL;
-	fdf->factors.x_offset = 0;
-	fdf->factors.y_offset = 0;
-	fdf->factors.x_angle = 1;
-	fdf->factors.y_angle = 1;
-	fdf->factors.z_angle = 1;
-	fdf->factors.z_scale = 1;
-	fdf->factors.zoom = 1;
-	fdf->factors.iso = false;
-	fdf->map.width = 0;
-	fdf->map.height = 0;
-	fdf->segment.color.blue = 0;
-	fdf->segment.color.red = 0;
-	fdf->segment.color.green = 0;
-	fdf->segment.color.opacity = 0;
-	fdf->segment.color.factor.integer = 0;
-	fdf->segment.color.factor.fractional = 0;
-	fdf->segment.color.factor.complement = 0;
-	fdf->segment.slope = 0;
-	fdf->segment.delta_x = 0;
-	fdf->segment.delta_y = 0;
-	fdf->segment.final = (t_coordinate){0, 0, 0, 0};
-	fdf->segment.initial = (t_coordinate){0, 0, 0, 0};
-	fdf->segment.is_vertical = false;
-	fdf->segment.reverse = false;
-	fdf->mlx_ptr = NULL;
-	fdf->win_ptr = NULL;
-	fdf->map.image = NULL;
-	fdf->file_path = NULL;
-	fdf->map.values = NULL;
-	fdf->error_flag = false;
-	fdf->map.coordinates = NULL;
-}
 
 static int	on_key_press(int keycode, t_fdf	*fdf)
 {
@@ -95,7 +58,7 @@ int	main(int argc, char **argv)
 	config_factors(&fdf);
 	draw_map(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr,
-		fdf.win_ptr, fdf.map.image->pointer, 0, 0);
+		fdf.win_ptr, fdf.image.pointer, 0, 0);
 	mlx_hook(fdf.win_ptr, 17, 0, on_close_window, &fdf);
 	mlx_key_hook(fdf.win_ptr, on_key_press, &fdf);
 	mlx_loop(fdf.mlx_ptr);
