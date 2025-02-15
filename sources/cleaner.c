@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/12 22:33:38 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 00:40:19 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	free_map_values(t_fdf *fdf)
 {
-	unsigned int	line;
-	unsigned int	column;
+	int	line;
+	int	column;
 
 	line = 0;
 	while (line < fdf->map.height)
@@ -35,7 +35,7 @@ static void	free_map_values(t_fdf *fdf)
 
 static void	free_coordinates(t_fdf *fdf)
 {
-	unsigned int	line;
+	int	line;
 
 	line = 0;
 	while (line < fdf->map.height)

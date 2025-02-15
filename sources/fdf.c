@@ -6,11 +6,22 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 22:00:05 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 02:19:24 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	init_fdf_values(t_fdf *fdf)
+{
+	fdf->mlx_ptr = NULL;
+	fdf->win_ptr = NULL;
+	fdf->map.image = NULL;
+	fdf->file_path = NULL;
+	fdf->map.values = NULL;
+	fdf->error_flag = false;
+	fdf->map.coordinates = NULL;
+}
 
 static int	on_key_press(int keycode, t_fdf	*fdf)
 {
@@ -65,3 +76,4 @@ int	main(int argc, char **argv)
 	free_mallocs(&fdf);
 	return (EXIT_SUCCESS);
 }
+// REMOVER FUNCAO abs diretamente por desencargo

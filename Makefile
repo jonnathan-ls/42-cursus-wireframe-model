@@ -15,7 +15,6 @@ SOURCES = \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/algorithm.c \
 	$(SRCS_DIR)/modifiers.c \
-	$(SRCS_DIR)/initializer.c \
 	$(SRCS_DIR)/coordinates.c \
 	$(SRCS_DIR)/configurator.c \
 
@@ -28,7 +27,6 @@ BONUS_SOURCES = \
 	$(SRCS_DIR)/algorithm.c \
 	$(SRCS_DIR)/modifiers.c \
 	$(SRCS_DIR)/fdf_bonus.c \
-	$(SRCS_DIR)/initializer.c \
 	$(SRCS_DIR)/coordinates.c \
 	$(SRCS_DIR)/configurator.c \
 	$(SRCS_DIR)/handler_bonus.c \
@@ -66,10 +64,10 @@ $(MLX):
 $(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) 
 	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $(NAME)
 
-$(BONUS_NAME): $(BONUS_OBJECTS) $(LIBFT) $(MLX)
-	$(CC) $(CFLAGS) $(BONUS_OBJECTS) $(LIBFT) $(MLX) $(MATH) $(LDFLAGS) -o $(BONUS_NAME)
+$(BONUS_NAME): $(BONUS_OBJECTS) $(LIBFT) $(PRINTF) $(MLX)
+	$(CC) $(CFLAGS) $(BONUS_OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $(BONUS_NAME)
 
-bonus: $(BONUS_NAME)
+bonus: $(LIBFT) $(PRINTF) $(MLX) $(BONUS_NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c 
 	@mkdir -p $(OBJS_DIR)

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 00:37:23 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 03:31:37 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef struct s_image
 
 typedef struct s_map
 {
-	unsigned int	width;
-	unsigned int	height;
+	int	width;
+	int	height;
 	t_image			*image;
 	char			***values;
 	t_coordinate	**coordinates;
@@ -60,40 +60,40 @@ typedef struct s_num_str
 
 typedef struct s_factors
 {
-	int		x_zoom;
-	int		y_zoom;
+	int		iso;
+	int		zoom;
+	double	x_angle;
+	double	y_angle;
+	double	z_angle;
+	int		z_height;
 	int		x_offset;
 	int		y_offset;
-	int		x_rotation;
-	int		y_rotation;
-	int		z_rotation;
-	float	z_scale;
-	int		change_color;
-	float	focal_length;
-	bool	isometric_projection;
 }	t_factors;
 
-typedef struct s_line
+typedef	struct s_color_factor
 {
-	int	x0;
-	int	y0;
-	int	x1;
-	int	y1;
-}	t_line;
-
+	int	integer;
+	float	fractional;
+	float	complement;
+}	t_color_factor;
+typedef	struct s_color
+{
+	int	red;
+	int	green;
+	int	blue;
+	double	opacity;
+	t_color_factor factor;
+}	t_color;
 typedef struct s_segment
 {
-	int				range;
 	float			slope;
 	t_coordinate	final;
 	t_coordinate	initial;
-	float			overlap;
-	int				delta_x;
-	int				delta_y;
-	float			distance;
+	float				delta_x;
+	float				delta_y;
 	bool			is_vertical;
-	float			final_distance;
-	float			initial_distance;
+	bool reverse;
+	t_color	color;
 }	t_segment;
 
 typedef struct s_fdf

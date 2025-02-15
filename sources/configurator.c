@@ -6,11 +6,18 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 22:44:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 01:33:15 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static int	get_min(int a, int b)
+{
+	if (a < b)
+		return (a);
+	return (b);
+}
 
 void	config_windown(t_fdf *fdf)
 {
@@ -44,14 +51,13 @@ void	config_map(t_fdf *fdf)
 
 void	config_factors(t_fdf	*fdf)
 {
-	fdf->factors.x_zoom = (WINDOW_WIDTH * 0.5) / fdf->map.width;
-	fdf->factors.y_zoom = (WINDOW_HEIGHT * 0.5) / fdf->map.height;
-	fdf->factors.x_offset = fmin(WINDOW_WIDTH / 2,
-			WINDOW_WIDTH / 2) - (fdf->map.width * fdf->factors.x_zoom) / 2;
-	fdf->factors.y_offset = fmin(WINDOW_HEIGHT / 2,
-			WINDOW_HEIGHT / 2) - (fdf->map.height * fdf->factors.y_zoom) / 2;
-	fdf->factors.y_offset += fdf->map.height * fdf->factors.y_zoom / 2;
-	fdf->factors.x_rotation = DEFAULT_ROTATION_ANGLE;
-	fdf->factors.y_rotation = DEFAULT_ROTATION_ANGLE;
-	fdf->factors.z_rotation = DEFAULT_ROTATION_ANGLE;
+	fdf->factors.zoom = get_min(WINDOW_WIDTH / fdf->map.width / 2,
+			WINDOW_HEIGHT / fdf->map.height / 2);
+	fdf->factors.x_angle = -0.615472907;
+	fdf->factors.y_angle = -0.523599;
+	fdf->factors.z_angle = 0.615472907;
+	fdf->factors.z_height = 1;
+	fdf->factors.x_offset = 0;
+	fdf->factors.y_offset = 0;
+	fdf->factors.iso = 1;
 }

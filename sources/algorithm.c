@@ -12,105 +12,108 @@
 
 #include "fdf.h"
 
-static void	draw_point(t_fdf *fdf, float x, float y)
+t_color_factor get_color_factor(float num)
 {
-	t_segment	*p;
+	t_color_factor factor;
 
-	p = &fdf->segment;
-	if (p->is_vertical)
+	factor.integer = (int)num;
+	if (num > 0.f)
+		factor.fractional = num - factor.integer;
+	else
+		factor.fractional = num - (factor.integer + 1.f);
+	factor.complement = 1.f - factor.fractional;
+	return factor;
+}
+
+static int	interpolate_color(int color1, int color2, t_segment segment)
+{
+	double	factor;
+
+	factor = segment.color.opacity;
+	if (color1 == color2)
+		return (color1);
+	return ((int)((double)color1 + (color2 - color1) * factor));
+}
+
+static int	ft_get_color(int x, float factor, t_segment segment)
+{
+	segment.color.opacity = absolute(x - segment.initial.x)
+		/ absolute(segment.final.x - segment.initial.x);
+	if (segment.reverse)
 	{
-		p->overlap = 1 - (y + 0.5 - (int)(y + 0.5));
-		p->initial_distance = x - (int)x;
-		custom_mlx_pixel_put(fdf, x, (y + 0.5),
-			interpolate_color(fdf, p->overlap * (1 - p->distance)));
-		custom_mlx_pixel_put(fdf, x + 1, (y + 0.5),
-			interpolate_color(fdf, p->overlap * p->distance));
+		segment.color.red = interpolate_color((segment.final.color >> 16)
+				& 0xFF, (segment.initial.color >> 16) & 0xFF, segment);
+		segment.color.green = interpolate_color((segment.final.color >> 8)
+				& 0xFF, (segment.initial.color >> 8) & 0xFF, segment);
+		segment.color.blue = interpolate_color(segment.final.color & 0xFF,
+				segment.initial.color & 0xFF, segment);
 	}
 	else
 	{
-		p->overlap = 1 - (x + 0.5 - (int)(x + 0.5));
-		p->initial_distance = y - (int)y;
-		custom_mlx_pixel_put(fdf, (x + 0.5), y,
-			interpolate_color(fdf, p->overlap * (1 - p->distance)));
-		custom_mlx_pixel_put(fdf, (x + 0.5), y + 1,
-			interpolate_color(fdf, p->overlap * p->distance));
+		segment.color.red = interpolate_color((segment.initial.color >> 16)
+				& 0xFF, (segment.final.color >> 16) & 0xFF, segment);
+		segment.color.green = interpolate_color((segment.initial.color >> 8)
+				& 0xFF, (segment.final.color >> 8) & 0xFF, segment);
+		segment.color.blue = interpolate_color(segment.initial.color & 0xFF,
+				segment.final.color & 0xFF, segment);
 	}
+	segment.color.red *= factor;
+	segment.color.green *= factor;
+	segment.color.blue *= factor;
+	return ((segment.color.red << 16) | (segment.color.green << 8)
+		| segment.color.blue);
 }
 
-static void	draw_horizontal_segment(t_fdf *fdf)
+static void	draw_line_segment(t_segment segment, t_fdf *fdf)
 {
-	float		x;
-	float		y;
-	int			int_x;
-	int			int_y;
-	int			index;
+	int				x_segment;
+	float			y_segment;
 
-	index = 1;
-	fdf->segment.range = round(fdf->segment.delta_x + 0.5);
-	while (index < fdf->segment.range)
+	x_segment = segment.initial.x;
+	y_segment = (float)segment.initial.y;
+	while (x_segment <= segment.final.x)
 	{
-		x = fdf->segment.initial.x + index;
-		y = fdf->segment.initial.y + index * fdf->segment.slope;
-		int_x = floor(x);
-		int_y = floor(y);
-		fdf->segment.distance = y - int_y;
-		custom_mlx_pixel_put(fdf, int_x, int_y,
-			interpolate_color(fdf, (1 - fdf->segment.distance)));
-		custom_mlx_pixel_put(fdf, int_x, int_y + 1,
-			interpolate_color(fdf, fdf->segment.distance));
-		index++;
+		segment.color.factor = get_color_factor(y_segment);
+		if (segment.is_vertical)
+		{
+			custom_mlx_pixel_put(fdf, segment.color.factor.integer, x_segment,
+				ft_get_color(x_segment, segment.color.factor.complement, segment));
+			custom_mlx_pixel_put(fdf, segment.color.factor.integer + 1, x_segment,
+				ft_get_color(x_segment, segment.color.factor.fractional, segment));
+		}
+		else
+		{
+			custom_mlx_pixel_put(fdf, x_segment, segment.color.factor.integer,
+				ft_get_color(x_segment, segment.color.factor.complement, segment));
+			custom_mlx_pixel_put(fdf, x_segment, segment.color.factor.integer + 1,
+				ft_get_color(x_segment, segment.color.factor.fractional, segment));
+		}
+		y_segment += segment.slope;
+		x_segment++;
 	}
-}
-
-static void	draw_vertical_segment(t_fdf *fdf)
-{
-	float		x;
-	float		y;
-	int			int_x;
-	int			int_y;
-	int			index;
-
-	index = 1;
-	fdf->segment.range = round(fdf->segment.delta_y + 0.5);
-	while (index < fdf->segment.range)
-	{
-		x = fdf->segment.initial.x + index * fdf->segment.slope;
-		y = fdf->segment.initial.y + index;
-		int_x = floor(x);
-		int_y = floor(y);
-		fdf->segment.distance = x - int_x;
-		custom_mlx_pixel_put(fdf, int_x, int_y,
-			interpolate_color(fdf, (1 - fdf->segment.distance)));
-		custom_mlx_pixel_put(fdf, int_x + 1, int_y,
-			interpolate_color(fdf, fdf->segment.distance));
-		index++;
-	}
-}
-
-static void	draw_line_segment(t_fdf *fdf)
-{
-	if (fdf->segment.is_vertical)
-		draw_vertical_segment(fdf);
-	else
-		draw_horizontal_segment(fdf);
 }
 
 void	xiaolin_wu_algorithm(t_fdf *fdf)
 {
-	t_segment	*p;
+	t_segment	*segment;
 	int			abs_y;
 	int			abs_x;
 
-	p = &fdf->segment;
-	abs_y = abs(p->final.y - p->initial.y);
-	abs_x = abs(p->final.x - p->initial.x);
-	p->is_vertical = abs_y > abs_x;
-	if (!p->is_vertical && p->final.x < p->initial.x)
-		swap_coordinates(fdf);
-	if (p->is_vertical && p->final.y < p->initial.y)
-		swap_coordinates(fdf);
-	p->slope = get_slope(p);
-	draw_point(fdf, p->initial.x, p->initial.y);
-	draw_point(fdf, p->final.x, p->final.y);
-	draw_line_segment(fdf);
+	segment = &fdf->segment;
+	abs_y = absolute(segment->final.y - segment->initial.y);
+	abs_x = absolute(segment->final.x - segment->initial.x);
+	segment->is_vertical = abs_y > abs_x;
+	if (fdf->segment.is_vertical)
+	{
+		swap(&segment->initial.x, &segment->initial.y);
+		swap(&segment->final.x, &segment->final.y);
+	}
+	if (segment->initial.x > segment->final.x)
+	{
+		swap(&segment->initial.x, &segment->final.x);
+		swap(&segment->initial.y, &segment->final.y);
+		segment->reverse = 1;
+	}
+	segment->slope = get_slope(segment);
+	draw_line_segment(fdf->segment, fdf);
 }

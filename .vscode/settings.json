@@ -26,6 +26,8 @@
 		"limits.h": "c",
 		"get_next_line.h": "c",
 		"structs.h": "c",
-		"ft_printf.h": "c"
+		"ft_printf.h": "c",
+		"macros.h": "c",
+		"numbers": "c"
 	}
 }
