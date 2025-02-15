@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 15:18:40 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:48:39 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		ft_putstr_fd(INVALID_ARGS_ERROR, STDERR_FILENO);
+		ft_putendl_fd(INVALID_ARGS_ERROR, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
 	init_fdf_values(&fdf);

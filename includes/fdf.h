@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 14:12:24 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/15 16:23:32 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <limits.h>
 # include <stdbool.h>
 # include "libft.h"
-# include "ft_printf.h"
 # include "get_next_line.h"
 # include "macros.h"
 # include "structs.h"
