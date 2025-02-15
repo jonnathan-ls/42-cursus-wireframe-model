@@ -1,16 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   modifiers1.c                                       :+:      :+:    :+:   */
+/*   modifiers_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 01:14:11 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:38:08 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	invert_colors(t_fdf *fdf)
+{
+	unsigned int	x;
+	unsigned int	y;
+	int				color;
+
+	y = 0;
+	while (y < fdf->map.height)
+	{
+		x = 0;
+		while (x < fdf->map.width)
+		{
+			color = fdf->map.coordinates[y][x].color;
+			fdf->map.coordinates[y][x].color = color ^ 0x00FFFFFF;
+			x++;
+		}
+		y++;
+	}
+}
+
+void	offset_handler(int keycode, t_fdf *fdf)
+{
+	if (keycode == OFFSET_LEFT)
+		(offset('l', fdf), redraw_map(fdf));
+	else if (keycode == OFFSET_RIGHT)
+		(offset('r', fdf), redraw_map(fdf));
+	else if (keycode == OFFSET_UP)
+		(offset('u', fdf), redraw_map(fdf));
+	else if (keycode == OFFSET_DOWN)
+		(offset('d', fdf), redraw_map(fdf));
+}
+
+void	rotate_handler(int keycode, t_fdf *fdf)
+{
+	if (keycode == ROTATE_LEFT)
+		(rotate('l', fdf), redraw_map(fdf));
+	else if (keycode == ROTATE_RIGHT)
+		(rotate('r', fdf), redraw_map(fdf));
+	else if (keycode == ROTATE_UP)
+		(rotate('u', fdf), redraw_map(fdf));
+	else if (keycode == ROTATE_DOWN)
+		(rotate('d', fdf), redraw_map(fdf));
+}
 
 void	apply_conic_projection(int *x, int *y, int z, t_fdf	*fdf)
 {
@@ -25,46 +69,4 @@ void	apply_conic_projection(int *x, int *y, int z, t_fdf	*fdf)
 		/ (fdf->factors.focal_length + previous_z);
 	*y = (previous_y * fdf->factors.focal_length)
 		/ (fdf->factors.focal_length + previous_z);
-}
-
-void	apply_isometric_projection(int *x, int *y, int z, float z_scale)
-{
-	int	previous_x;
-	int	previous_y;
-
-	previous_x = *x;
-	previous_y = *y;
-	*x = (previous_x - previous_y) * cos(0.523599);
-	*y = (previous_x + previous_y) * sin(0.523599) - z * z_scale;
-}
-
-void	apply_zoom(t_line *line, t_fdf *fdf)
-{
-	line->x0 *= fdf->factors.x_zoom;
-	line->y0 *= fdf->factors.y_zoom;
-	line->x1 *= fdf->factors.x_zoom;
-	line->y1 *= fdf->factors.y_zoom;
-}
-
-void	apply_offset(t_line *line, t_fdf *fdf)
-{
-	line->x0 += fdf->factors.x_offset;
-	line->y0 += fdf->factors.y_offset;
-	line->x1 += fdf->factors.x_offset;
-	line->y1 += fdf->factors.y_offset;
-}
-
-void	apply_rotation(int *x, int *y, t_fdf *fdf)
-{
-	int		x_new;
-	int		y_new;
-	double	x_rad;
-	double	y_rad;
-
-	x_rad = fdf->factors.x_rotation * M_PI / 180.0;
-	y_rad = fdf->factors.y_rotation * M_PI / 180.0;
-	x_new = *x * cos(x_rad) - *y * sin(x_rad);
-	y_new = *x * sin(y_rad) + *y * cos(y_rad);
-	*x = x_new;
-	*y = y_new;
 }

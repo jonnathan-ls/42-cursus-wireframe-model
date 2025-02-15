@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 22:00:05 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:57:33 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ static int	on_key_press(int keycode, t_fdf	*fdf)
 			free_mallocs(fdf);
 			exit(EXIT_SUCCESS);
 		}
+		else if (keycode == ZOOM_IN)
+			(zoom('i', fdf), redraw_map(fdf));
+		else if (keycode == ZOOM_OUT)
+			(zoom('o', fdf), redraw_map(fdf));
+		offset_handler(keycode, fdf);
+		rotate_handler(keycode, fdf);
+		if (keycode == INCREASE_Z_SCALE)
+			(scale('i', fdf), redraw_map(fdf));
+		else if (keycode == DECREASE_Z_SCALE)
+			(scale('d', fdf), redraw_map(fdf));
+		else if (keycode == 99)
+			(invert_colors(fdf), redraw_map(fdf));
 	}
 	return (0);
 }
@@ -65,3 +77,5 @@ int	main(int argc, char **argv)
 	free_mallocs(&fdf);
 	return (EXIT_SUCCESS);
 }
+
+// mlx_mouse_hook(fdf.win_ptr, on_mouse_click, &fdf);

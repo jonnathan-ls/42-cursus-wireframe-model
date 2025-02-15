@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 02:07:53 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 22:43:23 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define WHITE 0xFFFFFF
 # define ORANGE 0xFFA500
 # define WINDOW_WIDTH 1080
-# define WINDOW_HEIGHT 720
+# define WINDOW_HEIGHT 960
 # define WINDOW_TITLE "FdF"
 # define DEFAULT_COLOR	WHITE
 # define BREAK_LINE_CHAR '\n'
@@ -44,10 +44,6 @@
 # define TRANSLATE_Y	46
 # define INCREASE_Z_SCALE	122
 # define DECREASE_Z_SCALE	120
-
-// # define KEY_TRANSLATE_LEFT	115
-// # define KEY_TRANSLATE_RIGHT	119
-// # define KEY_RANDOM_COLOR	99
 
 # define INT_MAX_STR	"2147483647"
 # define INT_MIN_STR	"-2147483648"

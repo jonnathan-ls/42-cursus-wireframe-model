@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 00:40:31 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:53:17 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ static void	init_factors(t_fdf *fdf)
 {
 	fdf->factors.x_zoom = 1;
 	fdf->factors.y_zoom = 1;
-	fdf->factors.x_offset = 0;
-	fdf->factors.y_offset = 0;
+	fdf->factors.z_scale = 1;
+	fdf->factors.x_offset = 1;
+	fdf->factors.y_offset = 1;
 	fdf->factors.x_rotation = 1;
 	fdf->factors.y_rotation = 1;
-	fdf->factors.z_scale = 1;
 	fdf->factors.change_color = 1;
 	fdf->factors.focal_length = 1;
 	fdf->factors.isometric_projection = true;

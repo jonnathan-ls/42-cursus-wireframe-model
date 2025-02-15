@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/14 01:25:50 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/02/14 20:56:44 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,18 @@ void	apply_isometric_projection(int *x, int *y, int z, float z_scale);
 void	zoom(char type, t_fdf *fdf);
 void	scale(char type, t_fdf *fdf);
 void	rotate(char axis, t_fdf *fdf);
-void	translate(char type, t_fdf *fdf);
+// void	translate(char type, t_fdf *fdf);
 void	offset(char direction, t_fdf *fdf);
 
 // Changer functions
 void	redraw_map(t_fdf *fdf);
 void	offset_handler(int keycode, t_fdf *fdf);
 void	rotate_handler(int keycode, t_fdf *fdf);
+
+// Configurator functions
+void	config_map(t_fdf *fdf);
+void	config_factors(t_fdf	*fdf);
+void	config_windown(t_fdf *fdf);
 
 void	draw_map(t_fdf *fdf);
 void	free_split(char **split);
@@ -57,8 +62,6 @@ void	config_coordinates(t_fdf *fdf);
 void	xiaolin_wu_algorithm(t_fdf *fdf);
 bool	validates_map_values(t_fdf *fdf);
 void	remove_breakline_char(char *line);
-int		on_close_window(t_fdf *fdf);
-int		on_key_press(int keycode, t_fdf	*fdf);
 int		on_mouse_click(int button, t_fdf *fdf);
 void	exit_with_error(char *str, t_fdf *fdf);
 int		interpolate_color( t_fdf *fdf, float opacity);

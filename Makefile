@@ -1,4 +1,5 @@
 NAME = fdf
+BONUS_NAME	= fdf_bonus
 
 SRCS_DIR = ./sources
 OBJS_DIR = ./objects
@@ -10,17 +11,32 @@ SOURCES = \
 	$(SRCS_DIR)/utils.c \
 	$(SRCS_DIR)/mapper.c \
 	$(SRCS_DIR)/drawer.c \
-	$(SRCS_DIR)/factors.c \
 	$(SRCS_DIR)/cleaner.c \
-	$(SRCS_DIR)/handler.c \
 	$(SRCS_DIR)/validator.c \
 	$(SRCS_DIR)/algorithm.c \
-	$(SRCS_DIR)/modifiers1.c \
-	$(SRCS_DIR)/modifiers2.c \
+	$(SRCS_DIR)/modifiers.c \
 	$(SRCS_DIR)/initializer.c \
 	$(SRCS_DIR)/coordinates.c \
+	$(SRCS_DIR)/configurator.c \
+
+BONUS_SOURCES = \
+	$(SRCS_DIR)/utils.c \
+	$(SRCS_DIR)/mapper.c \
+	$(SRCS_DIR)/drawer.c \
+	$(SRCS_DIR)/cleaner.c \
+	$(SRCS_DIR)/validator.c \
+	$(SRCS_DIR)/algorithm.c \
+	$(SRCS_DIR)/modifiers.c \
+	$(SRCS_DIR)/fdf_bonus.c \
+	$(SRCS_DIR)/initializer.c \
+	$(SRCS_DIR)/coordinates.c \
+	$(SRCS_DIR)/configurator.c \
+	$(SRCS_DIR)/handler_bonus.c \
+	$(SRCS_DIR)/factors_bonus.c \
+	$(SRCS_DIR)/modifiers_bonus.c \
 
 OBJECTS = $(SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
+BONUS_OBJECTS = $(BONUS_SOURCES:$(SRCS_DIR)/%.c=$(OBJS_DIR)/%.o)
 
 LIBFT_DIR = $(LIBS_DIR)/libft
 LIBFT = $(LIBFT_DIR)/libft.a
@@ -48,7 +64,12 @@ $(MLX):
 	$(MAKE) -C $(MLX_DIR)
 
 $(NAME): $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) 
-	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $@
+	$(CC) $(CFLAGS) $(OBJECTS) $(LIBFT) $(PRINTF) $(MLX) $(MATH) $(LDFLAGS) -o $(NAME)
+
+$(BONUS_NAME): $(BONUS_OBJECTS) $(LIBFT) $(MLX)
+	$(CC) $(CFLAGS) $(BONUS_OBJECTS) $(LIBFT) $(MLX) $(MATH) $(LDFLAGS) -o $(BONUS_NAME)
+
+bonus: $(BONUS_NAME)
 
 $(OBJS_DIR)/%.o: $(SRCS_DIR)/%.c 
 	@mkdir -p $(OBJS_DIR)
