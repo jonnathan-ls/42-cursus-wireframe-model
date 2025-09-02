@@ -35,7 +35,6 @@ SOURCES_BONUS = \
 	$(SRCS_DIR)/configurator.c \
 	$(SRCS_DIR)/fdf_bonus.c \
 	$(SRCS_DIR)/utils_bonus.c \
-	$(SRCS_DIR)/utils2_bonus.c \
 	$(SRCS_DIR)/handler_bonus.c \
 	$(SRCS_DIR)/key_press_bonus.c \
 	$(SRCS_DIR)/instructions_bonus.c \

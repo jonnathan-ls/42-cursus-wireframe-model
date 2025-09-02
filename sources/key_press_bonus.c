@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 18:17:33 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:16:29 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 int	key_press_handler(int keycode, t_fdf *fdf)
 {
-	printf("keycode %d\n", keycode);
 	if (fdf == NULL)
 		return (0);
 	if (keycode == ESC)
