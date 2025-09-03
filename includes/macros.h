@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/02 21:34:42 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:48:43 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,14 @@
 # define NULL_CHAR '\0'
 # define EMPTY_STRING ""
 # define WHITE 0xFFFFFF
-# define ORANGE 0xFFA500
+# define BLUE 0x0000FF
+# define BLACK 0x000000
+# define GRAY 0x808080
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define INT_SIZE_DIGITS 10
 # define WINDOW_TITLE "FdF"
-# define DEFAULT_COLOR WHITE
+# define DEFAULT_COLOR BLUE
 # define BREAK_LINE_CHAR '\n'
 
 # define INT_MAX_STR "2147483647"

@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 15:31:28 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:43:09 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,24 @@ static t_coordinate	config_point(int x, int y, t_fdf *fdf)
 	return (coordinate);
 }
 
+static void	fill_background(t_fdf *fdf, int color)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < WINDOW_HEIGHT)
+	{
+		x = 0;
+		while (x < WINDOW_WIDTH)
+		{
+			custom_mlx_pixel_put(fdf, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_line(t_coordinate initial, t_coordinate final, t_fdf	*fdf)
 {
 	fdf->segment.initial = config_point(initial.x, initial.y, fdf);
@@ -45,8 +63,7 @@ void	draw_map(t_fdf *fdf)
 
 	x = 0;
 	y = 0;
-	ft_bzero(fdf->image.addr, WINDOW_WIDTH * WINDOW_HEIGHT
-		* (fdf->image.bits_per_pixel / 8));
+	fill_background(fdf, GRAY);
 	while (y < fdf->map.height)
 	{
 		x = 0;
