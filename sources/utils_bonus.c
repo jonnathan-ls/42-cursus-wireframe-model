@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 17:32:13 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:54:02 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ void	redraw_map(t_fdf *fdf)
 {
 	mlx_clear_window(fdf->mlx_ptr, fdf->win_ptr);
 	draw_map(fdf);
-	draw_instructions(fdf);
 	mlx_put_image_to_window(fdf->mlx_ptr, fdf->win_ptr,
 		fdf->image.pointer, 0, 0);
+	draw_instructions(fdf);
 }
 
 void	invert_colors(t_fdf *fdf)

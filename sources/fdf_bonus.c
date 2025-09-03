@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 16:48:44 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 20:54:20 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ int	main(int argc, char **argv)
 	config_windown(&fdf);
 	config_factors(&fdf);
 	draw_map(&fdf);
-	draw_instructions(&fdf);
 	mlx_put_image_to_window(fdf.mlx_ptr,
 		fdf.win_ptr, fdf.image.pointer, 0, 0);
+	draw_instructions(&fdf);
 	hook_handlers(&fdf);
 	mlx_loop(fdf.mlx_ptr);
 	free_mallocs(&fdf);

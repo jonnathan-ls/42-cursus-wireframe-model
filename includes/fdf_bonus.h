@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/02/15 18:30:21 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:34:19 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define FDF_BONUS_H
 # include "fdf.h"
 
-# define PLUS	61
-# define MINUS	45
+# define PLUS 61
+# define MINUS 45
 # define SPACE 32
 # define RESET 114
 # define ZOOM_IN 105
@@ -28,8 +28,8 @@
 # define ROTATE_RIGHT 100
 # define MAX_ANGLE M_PI
 # define MIN_ANGLE -M_PI
-# define ARROW_LEFT	65361
-# define ARROW_DOWN	65364
+# define ARROW_LEFT 65361
+# define ARROW_DOWN 65364
 # define ARROW_RIGHT 65363
 # define INCREASE_Z_SCALE 122
 # define DECREASE_Z_SCALE 120
