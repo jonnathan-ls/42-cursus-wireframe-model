@@ -6,7 +6,7 @@
 /*   By: jlacerda <jlacerda@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/21 20:26:55 by jlacerda          #+#    #+#             */
-/*   Updated: 2025/09/02 21:33:58 by jlacerda         ###   ########.fr       */
+/*   Updated: 2025/09/02 21:53:18 by jlacerda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,6 @@ static void	put_str_in_map(char *str, t_fdf *fdf, int end_instructions)
 void	draw_instructions(t_fdf *fdf)
 {
 	put_str_in_map("| ----------------------------- |", fdf, 0);
-	put_str_in_map("| Turn Right:       D           |", fdf, 0);
-	put_str_in_map("| Turn Left:        A           |", fdf, 0);
-	put_str_in_map("| Shift Right:      D           |", fdf, 0);
-	put_str_in_map("| Shift Left:       A           |", fdf, 0);
-	put_str_in_map("| Zoom In:          I           |", fdf, 0);
-	put_str_in_map("| Zoom Out:         O           |", fdf, 0);
 	put_str_in_map("| Move Up:          Arrow Up    |", fdf, 0);
 	put_str_in_map("| Move Down:        Arrow Down  |", fdf, 0);
 	put_str_in_map("| Move Left:        Arrow Left  |", fdf, 0);
@@ -45,5 +39,9 @@ void	draw_instructions(t_fdf *fdf)
 	put_str_in_map("| Change Isometric: Space       |", fdf, 0);
 	put_str_in_map("| Invert Colors:    C           |", fdf, 0);
 	put_str_in_map("| Reset Changes:    R           |", fdf, 0);
+	put_str_in_map("| Turn Right:       D           |", fdf, 0);
+	put_str_in_map("| Turn Left:        A           |", fdf, 0);
+	put_str_in_map("| Zoom In:          I           |", fdf, 0);
+	put_str_in_map("| Zoom Out:         O           |", fdf, 0);
 	put_str_in_map("| ----------------------------- |", fdf, 1);
 }
